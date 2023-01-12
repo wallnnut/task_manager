@@ -9,10 +9,18 @@ import Main from "./app/layouts/Main";
 import RegisterLogin from "./app/layouts/RegisterLogin";
 import NavBar from "./app/NavBar";
 import { loadTaskList } from "./app/store/slices/tasks";
+import { nanoid } from "nanoid";
+import { loadCategorySizes } from "./app/store/slices/categorySize";
+import { loadCategorySphere } from "./app/store/slices/categorySphere";
+import { loadPriorities } from "./app/store/slices/priority";
 function App() {
+	console.log(nanoid());
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(loadTaskList());
+		dispatch(loadCategorySizes());
+		dispatch(loadCategorySphere());
+		dispatch(loadPriorities());
 	}, []);
 	return (
 		<div className="app">

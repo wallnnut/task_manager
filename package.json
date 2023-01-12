@@ -10,6 +10,7 @@
     "axios": "^1.2.2",
     "bootstrap": "^5.3.0-alpha1",
     "bootstrap-icons": "^1.10.3",
+    "d3": "^7.8.1",
     "moment": "^2.29.4",
     "nanoid": "^4.0.0",
     "react": "^18.2.0",

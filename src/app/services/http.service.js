@@ -14,6 +14,7 @@ http.interceptors.request.use(
 				(!containSlash
 					? (config.url = config.url.slice(0, -1))
 					: config.url) + ".json";
+			console.log(config.url);
 		}
 		// const expiresDate = localStorageService.getExpires();
 		// const refreshToken = localStorageService.getRefreshToken();
