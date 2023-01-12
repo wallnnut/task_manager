@@ -17,6 +17,7 @@ const DropDownButton = ({ children, name, onChange }) => {
 					return (
 						<Dropdown.Item
 							as="button"
+							type="button"
 							onClick={handleSelect}
 							key={act}
 							name={name}

@@ -4,11 +4,12 @@ import { Button, Stack } from "react-bootstrap";
 import { Calendar } from "react-calendar";
 import DropDownButton from "../createTask/DropDownButton";
 import useModal from "../hooks/useModal";
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-// import SelectField from "./common/selectField";
 import TextField from "./common/TextField";
+import { useDispatch } from "react-redux";
+import { createTask } from "../store/slices/tasks";
 const CreateTaskForm = () => {
+	const dispatch = useDispatch();
 	const [data, setData] = useState({
 		title: "",
 		description: "",
@@ -16,6 +17,8 @@ const CreateTaskForm = () => {
 		priority: "",
 		category_sphere: "",
 		category_size: "",
+		time: "",
+		completed: false,
 	});
 	const [errors, setErrors] = useState({});
 	const { setCreateTaskModal } = useModal();
@@ -39,6 +42,7 @@ const CreateTaskForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(data);
+		dispatch(createTask(data));
 	};
 
 	return (

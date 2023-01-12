@@ -1,4 +1,3 @@
-import moment from "moment";
 import * as yup from "yup";
 
 export const timerSchema = yup.object().shape({

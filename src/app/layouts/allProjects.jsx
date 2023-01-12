@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import CreateTask from "../createTask/createTask";
+import { Button, Container } from "react-bootstrap";
 import TasksList from "../tasksList";
 import { Modal } from "react-bootstrap";
 import useModal from "../hooks/useModal";

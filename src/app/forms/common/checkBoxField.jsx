@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const CheckBoxField = ({ name, value, onChange, children, error, mb }) => {
+const CheckBoxField = ({ name, value, onChange, children, error, mb, _id }) => {
 	const handleChange = () => {
-		onChange({ name: name, value: !value });
+		if (name === "completed") {
+			onChange({ _id: _id, [name]: !value });
+		} else {
+			onChange({ name: name, value: !value });
+		}
 	};
 	const getInputClasses = () => {
 		return "form-check-input" + (error ? " is-invalid" : "");

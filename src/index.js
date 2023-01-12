@@ -3,16 +3,20 @@ import ReactDOM from 'react-dom/client';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "./app/store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const store = createStore();
 root.render(
 	<BrowserRouter>
-		<React.StrictMode>
+		<Provider store={store}>
 			<App />
-		</React.StrictMode>
+		</Provider>
 	</BrowserRouter>
 );
 
