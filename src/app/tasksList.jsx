@@ -5,13 +5,11 @@ import { useHistory } from "react-router-dom";
 import CheckBoxField from "./forms/common/checkBoxField";
 import {
 	getLoadingStatusTasks,
-	getTaskList,
 	removeTask,
-	completeTask,
+	editTask,
 } from "./store/slices/tasks";
 
-const TasksList = () => {
-	const tasks = useSelector(getTaskList());
+const TasksList = ({ tasks }) => {
 	const isLoading = useSelector(getLoadingStatusTasks());
 	const dispatch = useDispatch();
 	const handleRemoveTask = (taskId) => {
@@ -20,7 +18,7 @@ const TasksList = () => {
 	const history = useHistory();
 	const handleComplete = (data) => {
 		console.log(data);
-		dispatch(completeTask(data));
+		dispatch(editTask(data));
 	};
 
 	return (

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { ModalProvider } from "./app/hooks/useModal";
 import AllProjects from "./app/layouts/allProjects";
 import EditTaskPage from "./app/layouts/editTaskPage";

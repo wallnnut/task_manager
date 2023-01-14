@@ -40,8 +40,7 @@ export const loadCategorySizes = () => async (dispatch) => {
 	}
 };
 
-// const getTaskSizes = () => (state) => {
+export const getSizes = () => (state) => state.size.entities;
 
-// }
 
 export default categorySizeReducer;

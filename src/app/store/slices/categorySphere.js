@@ -40,4 +40,6 @@ export const loadCategorySphere = () => async (dispatch) => {
 	}
 };
 
+export const getSpheres = () => (state) => state.sphere.entities;
+
 export default categorySphereReducer;

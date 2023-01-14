@@ -4,8 +4,17 @@ import TasksList from "../tasksList";
 import { Modal } from "react-bootstrap";
 import useModal from "../hooks/useModal";
 import CreateTaskForm from "../forms/createTaskForm";
+import { useSelector } from "react-redux";
+import { getTaskList } from "../store/slices/tasks";
+import { getSizes } from "../store/slices/categorySize";
+import { getSpheres } from "../store/slices/categorySphere";
+import { getPriorities } from "../store/slices/priority";
 
 const AllProjects = () => {
+	const tasks = useSelector(getTaskList());
+	const sphere = useSelector(getSpheres());
+	const size = useSelector(getSizes());
+	const priority = useSelector(getPriorities());
 	const { createTaskModal, setCreateTaskModal } = useModal();
 	return (
 		<>
@@ -34,11 +43,14 @@ const AllProjects = () => {
 					</h3>
 				</Modal.Header>
 				<Container>
-					<CreateTaskForm />
+					<CreateTaskForm
+						sizes={size}
+						priorities={priority}
+						spheres={sphere}
+					/>
 				</Container>
 			</Modal>
-
-			<TasksList />
+			{tasks && <TasksList tasks={tasks} />}
 		</>
 	);
 };

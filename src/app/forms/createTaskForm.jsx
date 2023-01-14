@@ -8,7 +8,7 @@ import "react-dropdown/style.css";
 import TextField from "./common/TextField";
 import { useDispatch } from "react-redux";
 import { createTask } from "../store/slices/tasks";
-const CreateTaskForm = () => {
+const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 	const dispatch = useDispatch();
 	const [data, setData] = useState({
 		title: "",
@@ -19,6 +19,7 @@ const CreateTaskForm = () => {
 		category_size: "",
 		time: "",
 		completed: false,
+		focused_time: 0,
 	});
 	const [errors, setErrors] = useState({});
 	const { setCreateTaskModal } = useModal();
@@ -74,16 +75,19 @@ const CreateTaskForm = () => {
 				</Button>
 
 				<DropDownButton
+					actions={priorities}
 					onChange={handleChange}
 					name="priority"
 					children={<i className="bi bi-flag"></i>}
 				/>
 				<DropDownButton
+					actions={spheres}
 					onChange={handleChange}
 					name="category_sphere"
 					children={<i className="bi bi-tag"></i>}
 				/>
 				<DropDownButton
+					actions={sizes}
 					onChange={handleChange}
 					name="category_size"
 					children={<i className="bi bi-rulers"></i>}

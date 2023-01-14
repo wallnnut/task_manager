@@ -37,4 +37,7 @@ export const loadPriorities = () => async (dispatch) => {
 	}
 };
 
+export const getPriorities = () => (state) => state.priority.entities;
+
+
 export default prioritiesReducer;

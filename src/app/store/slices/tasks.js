@@ -40,7 +40,7 @@ const tasksSlice = createSlice({
 		taskRemoveFailed: (state, action) => {
 			state.error = action.payload;
 		},
-		taskCompleted: (state, action) => {
+		taskEdited: (state, action) => {
 			state.entities = state.entities.map((task) => {
 				if (task._id === action.payload._id) {
 					return {
@@ -66,7 +66,7 @@ const {
 	taskCreateFailed,
 	taskRemoved,
 	taskRemoveFailed,
-	taskCompleted,
+	taskEdited,
 } = actions;
 
 export const loadTaskList = () => async (dispatch) => {
@@ -105,13 +105,12 @@ export const removeTask = (taskId) => async (dispatch) => {
 		dispatch(taskRemoveFailed(error.message));
 	}
 };
-export const completeTask = (data) => async (dispatch) => {
+export const editTask = (data) => async (dispatch) => {
 	dispatch(taskEditRequested());
-	dispatch(taskCompleted(data));
 
 	try {
 		const { content } = await taskService.edit(data);
-		console.log(content);
+		dispatch(taskEdited(content));
 	} catch (error) {}
 };
 

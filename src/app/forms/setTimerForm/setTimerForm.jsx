@@ -7,16 +7,16 @@ import useModal from "../../hooks/useModal";
 const SetTimerForm = ({ onSubmit }) => {
 	const { setTimerModal } = useModal();
 	const [time, setTime] = useState({
-		hours: "",
-		minutes: "",
-		seconds: "",
+		hours: 0,
+		minutes: 0,
+		seconds: 0,
 	});
 	const [errors, setErrors] = useState({});
 
 	const handleChange = (target) => {
 		setTime((prevState) => ({
 			...prevState,
-			[target.name]: target.value,
+			[target.name]: Number(target.value),
 		}));
 	};
 	const isValid = Object.keys(errors).length === 0;
