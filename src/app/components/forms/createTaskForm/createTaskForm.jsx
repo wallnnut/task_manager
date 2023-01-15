@@ -2,12 +2,15 @@ import moment from "moment/moment";
 import React, { useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import { Calendar } from "react-calendar";
-import DropDownButton from "../createTask/DropDownButton";
-import useModal from "../hooks/useModal";
+import "react-calendar/dist/Calendar.css";
+
+import DropDownButton from "../common/DropDownButton";
+import useModal from "../../../hooks/useModal";
 import "react-dropdown/style.css";
-import TextField from "./common/TextField";
+import TextField from "../common/TextField";
 import { useDispatch } from "react-redux";
-import { createTask } from "../store/slices/tasks";
+import { createTask } from "../../../store/slices/tasks";
+
 const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 	const dispatch = useDispatch();
 	const [data, setData] = useState({
@@ -26,11 +29,12 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 	const [value, onChange] = useState(new Date());
 	const [isCalendar, setIsCalendar] = useState(false);
 	const [isAlarm, setIsAlarm] = useState(false);
-	const handleClick = ({ target }) => {
-		if (target.name === "calendar") {
+	const handleClick = (e) => {
+		e.stopPropagation();
+		if (e.target.name === "calendar") {
 			setIsCalendar((prevState) => !prevState);
 		}
-		if (target.name === "alarm") {
+		if (e.target.name === "alarm") {
 			setIsAlarm((prevState) => !prevState);
 		}
 	};
@@ -125,8 +129,7 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 			</Stack>
 			<Button
 				onClick={() => setCreateTaskModal((prevState) => !prevState)}
-				className="w-100 mb-3"
-				variant="primary"
+				className=" bg-primary-subtle w-100 mb-3"
 				type="submit"
 			>
 				Создать

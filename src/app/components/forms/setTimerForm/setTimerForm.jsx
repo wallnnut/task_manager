@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../common/TextField";
-import { timerSchema } from "../../validators/timerSchema";
+import { timerSchema } from "../../../validators/timerSchema";
 import { Button } from "react-bootstrap";
-import useModal from "../../hooks/useModal";
+import useModal from "../../../hooks/useModal";
 
 const SetTimerForm = ({ onSubmit }) => {
 	const { setTimerModal } = useModal();

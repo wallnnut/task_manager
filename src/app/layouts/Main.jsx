@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SelectField from "../forms/common/selectField";
-import SetTimerForm from "../forms/setTimerForm/setTimerForm";
+import SelectField from "../components/forms/common/selectField";
+import SetTimerForm from "../components/forms/setTimerForm/setTimerForm";
 import useModal from "../hooks/useModal";
-import ModalWindow from "../ModalWindow";
-
+import ModalWindow from "../components/ModalWindow";
 import {
 	editTask,
 	getLoadingStatusTasks,
 	getTaskById,
 	getTaskList,
 } from "../store/slices/tasks";
-import CountDown from "../timer/timer";
+import CountDown from "../components/timer/timer";
+
 const Main = () => {
 	const dispatch = useDispatch();
 	const [data, setData] = useState({

@@ -10,7 +10,9 @@ const CheckBoxField = ({ name, value, onChange, children, error, mb, _id }) => {
 		}
 	};
 	const getInputClasses = () => {
-		return "form-check-input" + (error ? " is-invalid" : "");
+		return (
+			"form-check-input bg-body-tertiary" + (error ? " is-invalid" : "")
+		);
 	};
 	return (
 		<div className={`form-check mb-${mb ? mb : 4}`}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { validatorLogin } from "../../validators/loginSchema";
+import { Button } from "react-bootstrap";
+import { validatorLogin } from "../../../validators/loginSchema";
 import CheckBoxField from "../common/checkBoxField";
 import TextField from "../common/TextField";
 
@@ -61,13 +62,13 @@ const LoginForm = () => {
 			>
 				Оставаться в системе
 			</CheckBoxField>
-			<button
-				className="btn btn-primary w-100 mx-auto"
+			<Button
+				className="bg-primary-subtle w-100 mx-auto"
 				type="submit"
 				disabled={!isValid}
 			>
 				Войти
-			</button>
+			</Button>
 		</form>
 	);
 };

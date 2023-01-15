@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getLoadingStatusTasks, getTaskById } from "../store/slices/tasks";
-import TaskCategoryCard from "../taskCategoryCard";
-import TaskPriorityCard from "../taskPriorityCard";
-import TaskTitleCard from "../taskTitleCard";
+import TaskCategoryCard from "../components/taskCategoryCard";
+import TaskPriorityCard from "../components/taskPriorityCard";
+import TaskTitleCard from "../components/taskTitleCard";
 
 const EditTaskPage = () => {
 	const isLoading = useSelector(getLoadingStatusTasks());

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import LoginForm from "../forms/loginForm/LoginForm";
-import RegisterForm from "../forms/registerForm/registerForm";
+import LoginForm from "../components/forms/loginForm/LoginForm";
+import RegisterForm from "../components/forms/registerForm/registerForm";
 const RegisterLogin = () => {
 	const { type } = useParams();
 	const [formType, setFormType] = useState(
@@ -16,7 +16,7 @@ const RegisterLogin = () => {
 	return (
 		<div className="container mt-5">
 			<div className="row">
-				<div className="col-md-6 offset-md-3 shadow p-4">
+				<div className="col-md-6 offset-md-3 shadow bg-dark rounded-3 p-4">
 					{formType === "register" ? (
 						<>
 							<h3 className=" text-center mb-4">Регистрация</h3>

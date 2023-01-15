@@ -14,7 +14,7 @@ const SelectField = ({
 		onChange({ name: target.name, value: target.value });
 	};
 	const getInputClasses = () => {
-		return "form-select" + (error ? " is-invalid" : "");
+		return "form-select bg-body-tertiary" + (error ? " is-invalid" : "");
 	};
 
 	const optionsArray =
@@ -28,12 +28,12 @@ const SelectField = ({
 				{label}
 			</label>
 			<select
-				style={{
-					backgroundColor: "rgb(52,52,52)",
-					color: "rgb(235,235,235)",
-					appearance: "white",
-				}}
-				className={getInputClasses()}
+				// style={{
+				// 	backgroundColor: "rgb(52,52,52)",
+				// 	color: "rgb(235,235,235)",
+				// 	appearance: "white",
+				// }}
+				className={getInputClasses() + ""}
 				id={name}
 				name={name}
 				value={value}

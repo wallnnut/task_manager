@@ -1,15 +1,14 @@
 import React from "react";
 import { Button, Container } from "react-bootstrap";
-import TasksList from "../tasksList";
 import { Modal } from "react-bootstrap";
 import useModal from "../hooks/useModal";
-import CreateTaskForm from "../forms/createTaskForm";
 import { useSelector } from "react-redux";
 import { getTaskList } from "../store/slices/tasks";
 import { getSizes } from "../store/slices/categorySize";
 import { getSpheres } from "../store/slices/categorySphere";
 import { getPriorities } from "../store/slices/priority";
-
+import TasksList from "../components/tasksList/tasksList";
+import CreateTaskForm from "../components/forms/createTaskForm/createTaskForm";
 const AllProjects = () => {
 	const tasks = useSelector(getTaskList());
 	const sphere = useSelector(getSpheres());

@@ -1,10 +1,14 @@
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
-import { registerSchema } from "../../validators/registerSchema";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../../store/slices/user";
+import { registerSchema } from "../../../validators/registerSchema";
 import CheckBoxField from "../common/checkBoxField";
 import RadioField from "../common/radioField";
 import TextField from "../common/TextField";
 const RegisterForm = () => {
+	const dispatch = useDispatch();
 	const [errors, setErrors] = useState({});
 	const [data, setData] = useState({
 		email: "",
@@ -31,7 +35,7 @@ const RegisterForm = () => {
 		e.preventDefault();
 		const isValid = validate();
 		if (!isValid) return;
-		console.log(data);
+		dispatch(signUp(data));
 	};
 
 	useEffect(() => {
@@ -93,13 +97,13 @@ const RegisterForm = () => {
 			>
 				Подтвердить <a>лицензионное соглашение</a>
 			</CheckBoxField>
-			<button
-				className="btn btn-primary w-100 mx-auto"
+			<Button
+				className=" bg-primary-subtle w-100 mx-auto"
 				type="submit"
 				disabled={!isValid}
 			>
 				Submit
-			</button>
+			</Button>
 		</form>
 	);
 };

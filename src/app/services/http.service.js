@@ -1,5 +1,6 @@
 import axios from "axios";
 import configFile from "../config.json";
+import localStorageService from "./localStorage.service";
 
 const http = axios.create({
 	baseURL: configFile.apiEndPoint,
@@ -9,39 +10,36 @@ http.interceptors.request.use(
 	async function (config) {
 		if (configFile.isFireBase) {
 			const containSlash = / \/$ /gi.test(config.url);
-			console.log(containSlash);
 			config.url =
 				(!containSlash
 					? (config.url = config.url.slice(0, -1))
 					: config.url) + ".json";
-			console.log(config.url);
 		}
-		// const expiresDate = localStorageService.getExpires();
-		// const refreshToken = localStorageService.getRefreshToken();
-		// if (refreshToken && expiresDate < Date.now()) {
-		// 	const { data } = await axios.post(
-		// 		`https://securetoken.googleapis.com/v1/token?key=${process.env.REACT_APP_FIREBASE_KEY}`,
-		// 		{
-		// 			grant_type: "refresh_token",
-		// 			refresh_token: refreshToken,
-		// 		}
-		// 	);
-		// 	localStorageService.setToken({
-		// 		refreshToken: data.refresh_token,
-		// 		idToken: data.id_token,
-		// 		expiresIn: data.expires_in,
-		// 		localId: data.user_id,
-		// 	});
-		// }
-		// const acessToken = localStorageService.getAccessToken();
-		// if (acessToken) {
-		// 	config.params = { ...config.params, auth: acessToken };
-		// }
+		const expiresDate = localStorageService.getExpires();
+		const refreshToken = localStorageService.getRefreshToken();
+		if (refreshToken && expiresDate < Date.now()) {
+			const { data } = await axios.post(
+				`https://securetoken.googleapis.com/v1/token?key=${process.env.REACT_APP_FIREBASE_KEY}`,
+				{
+					grant_type: "refresh_token",
+					refresh_token: refreshToken,
+				}
+			);
+			localStorageService.setToken({
+				refreshToken: data.refresh_token,
+				idToken: data.id_token,
+				expiresIn: data.expires_in,
+				localId: data.user_id,
+			});
+		}
+		const acessToken = localStorageService.getAccessToken();
+		if (acessToken) {
+			config.params = { ...config.params, auth: acessToken };
+		}
 
 		return config;
 	},
 	function (error) {
-		console.log(error);
 		return Promise.reject(error);
 	}
 );
@@ -64,7 +62,6 @@ http.interceptors.response.use(
 			error.response.status >= 400 &&
 			error.response.status < 500;
 		if (!expectedErrors) {
-			console.log(error);
 			// toast.error("Something went wrong. Try later");
 		}
 		return Promise.reject(error);

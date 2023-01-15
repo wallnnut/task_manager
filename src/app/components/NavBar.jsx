@@ -2,9 +2,13 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import NavProfile from "./navProfile";
+import { getLoggedInStatus } from "../store/slices/user";
 
 const NavBar = () => {
+	const isLoggedIn = useSelector(getLoggedInStatus());
 	return (
 		<>
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -24,7 +28,11 @@ const NavBar = () => {
 						</Nav>
 						<Nav as="ul">
 							<Nav.Link as="li">
-								<Link to="/login">Login</Link>
+								{isLoggedIn ? (
+									<NavProfile />
+								) : (
+									<Link to="/login">Login</Link>
+								)}
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>

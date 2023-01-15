@@ -3,20 +3,19 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import { ModalProvider } from "./app/hooks/useModal";
 import AllProjects from "./app/layouts/allProjects";
 import EditTaskPage from "./app/layouts/editTaskPage";
 import Main from "./app/layouts/Main";
 import RegisterLogin from "./app/layouts/RegisterLogin";
-import NavBar from "./app/NavBar";
 import { loadTaskList } from "./app/store/slices/tasks";
 import { nanoid } from "nanoid";
 import { loadCategorySizes } from "./app/store/slices/categorySize";
 import { loadCategorySphere } from "./app/store/slices/categorySphere";
 import { loadPriorities } from "./app/store/slices/priority";
+import Analytics from "./app/layouts/analytics";
+import NavBar from "./app/components/NavBar";
 function App() {
-	console.log(nanoid());
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(loadTaskList());
@@ -37,6 +36,7 @@ function App() {
 						path="/edit/:taskId"
 						component={EditTaskPage}
 					/>
+					<Route exact path="/analytics" component={Analytics} />
 				</Switch>
 			</ModalProvider>
 		</div>
