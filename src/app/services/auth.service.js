@@ -8,7 +8,7 @@ const httpAuth = axios.create({
 		key: process.env.REACT_APP_FIREBASE_KEY,
 	},
 });
-const userEndPoint = "/user";
+const userEndPoint = "user/";
 
 const authService = {
 	register: async ({ email, password }) => {
@@ -28,6 +28,7 @@ const authService = {
 		return data;
 	},
 	create: async (payload) => {
+		console.log(payload._id);
 		const { data } = await httpService.put(
 			userEndPoint + payload._id,
 			payload

@@ -75,7 +75,7 @@ const RegisterForm = () => {
 				error={errors.password}
 			/>
 			<TextField
-				label="Пароль"
+				label="Дата рождения"
 				type="date"
 				name="birthDate"
 				value={data.birthDate}

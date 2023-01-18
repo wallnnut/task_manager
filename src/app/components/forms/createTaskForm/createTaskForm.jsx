@@ -2,8 +2,7 @@ import moment from "moment/moment";
 import React, { useState } from "react";
 import { Button, Stack } from "react-bootstrap";
 import { Calendar } from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-
+import "./calendar.css";
 import DropDownButton from "../common/DropDownButton";
 import useModal from "../../../hooks/useModal";
 import "react-dropdown/style.css";

@@ -3,24 +3,19 @@ import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 // import { authErrorGenerator } from "../utils/authErrorGenerator";
 
-const initialState = localStorageService.getAccessToken()
-	? {
-			error: null,
-			auth: { userId: localStorageService.getUserId() },
-			isLoggedIn: true,
-	  }
-	: {
-			error: null,
-			auth: null,
-			isLoggedIn: false,
-	  };
+const initialState = {
+	user: null,
+	error: null,
+	auth: null,
+	isLoggedIn: false,
+};
 
 const usersSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
 		authRequestSuccess: (state, action) => {
-			state.auth = action.payload;
+			state.user = action.payload;
 			state.isLoggedIn = true;
 		},
 		authRequestFailed: (state, action) => {
@@ -69,7 +64,6 @@ export const signUp =
 		dispatch(authRequested());
 		try {
 			const data = await authService.register({ email, password });
-			console.log(data);
 			localStorageService.setToken(data);
 			dispatch(
 				createUser({
@@ -78,60 +72,62 @@ export const signUp =
 					...rest,
 				})
 			);
-			dispatch(authRequestSuccess({ _id: data.localId, email, ...rest }));
 		} catch (error) {
 			dispatch(authRequestFailed(error.message));
 		}
 	};
-
-export const signIn =
-	({ payload, redirect }) =>
-	async (dispatch) => {
-		const { email, password } = payload;
-		dispatch(authRequested());
-		try {
-			const data = await authService.login({ email, password });
-			dispatch(authRequestSuccess({ userId: data.localId }));
-			localStorageService.setToken(data);
-			// history.push(redirect);
-		} catch (error) {
-			const { code, message } = error.response.data.error;
-			if (code === 400) {
-				// const errorMessage = authErrorGenerator(message);
-				// dispatch(authRequestFailed(errorMessage));
-			} else {
-				dispatch(authRequestFailed(error.message));
-			}
-		}
-	};
-
-export const logOut = () => (dispatch) => {
-	localStorageService.removeToken();
-	dispatch(userLoggedOut());
-	// history.push("/");
-};
-
-const createUser = (payload) => async (dispatch) => {
+	const createUser = (payload) => async (dispatch) => {
 	dispatch(userCreateRequested());
+	console.log(payload)
 	try {
-		const { data } = await authService.create(payload);
-		console.log(data);
+		const {content} = await authService.create(payload);
+		dispatch(authRequestSuccess(content));
+
 	} catch (error) {
 		dispatch(createUserFailed(error.message));
 	}
 };
 
-export const editUser = (data) => async (dispatch) => {
-	dispatch(editRequested());
-	try {
-		const { content } = await authService.editUser(data);
-		dispatch(userEdited(data));
-		// history.goBack();
-		return content;
-	} catch (error) {
-		dispatch(editRequestFailed(error.message));
-	}
-};
+// export const signIn =
+// 	({ payload, redirect }) =>
+// 	async (dispatch) => {
+// 		const { email, password } = payload;
+// 		dispatch(authRequested());
+// 		try {
+// 			const data = await authService.login({ email, password });
+// 			dispatch(authRequestSuccess({ userId: data.localId }));
+// 			localStorageService.setToken(data);
+// 			// history.push(redirect);
+// 		} catch (error) {
+// 			const { code, message } = error.response.data.error;
+// 			if (code === 400) {
+// 				// const errorMessage = authErrorGenerator(message);
+// 				// dispatch(authRequestFailed(errorMessage));
+// 			} else {
+// 				dispatch(authRequestFailed(error.message));
+// 			}
+// 		}
+// 	};
+
+// export const logOut = () => (dispatch) => {
+// 	localStorageService.removeToken();
+// 	dispatch(userLoggedOut());
+// 	// history.push("/");
+// };
+
+
+
+// export const editUser = (data) => async (dispatch) => {
+// 	dispatch(editRequested());
+// 	try {
+// 		const { content } = await authService.editUser(data);
+// 		dispatch(userEdited(data));
+// 		// history.goBack();
+// 		return content;
+// 	} catch (error) {
+// 		dispatch(editRequestFailed(error.message));
+// 	}
+// };
 
 export const getLoggedInStatus = () => (state) => state.user.isLoggedIn;
 export const getDataStatus = () => (state) => state.user.dataLoaded;
