@@ -2,36 +2,31 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentUserData } from "../store/slices/user";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const NavProfile = () => {
 	const currentUser = useSelector(getCurrentUserData());
-	console.log(currentUser);
-	const [isOpen, setOpen] = useState(false);
-	const toggleMenu = () => {
-		setOpen((prevState) => !prevState);
-	};
+
 	if (!currentUser) return "Loading...";
 	return (
-		<div className="dropdown text-light" onClick={toggleMenu}>
-			<div className="btn dropdown-toggle d-flex align-items-center">
-				<div className="me-2">{currentUser.name}</div>
-				{currentUser.image ? (
-					<img src={currentUser.image} height="40px" />
-				) : (
-					<i class="bi bi-person-circle"></i>
-				)}
-			</div>
-			<div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
-				<Link
-					className="dropdown-item"
-					to={`/users/${currentUser._id}`}
-				>
-					Profile
-				</Link>
-				<Link className="dropdown-item" to="/logout">
-					Log out
-				</Link>
-			</div>
+		<div className="d-flex align-items-center">
+			{currentUser.image ? (
+				<img src={currentUser.image} height="40px" />
+			) : (
+				<i className="fs-3 bi bi-person-circle"></i>
+			)}
+			<NavDropdown
+				id="nav-dropdown-dark-example"
+				title={currentUser.name}
+				menuVariant="dark"
+			>
+				<NavDropdown.Item href="#action/3.1">
+					<Link to={`/users/${currentUser._id}`}>Profile</Link>
+				</NavDropdown.Item>
+				<NavDropdown.Item href="#action/3.2">
+					<Link to="/logout">Log out</Link>
+				</NavDropdown.Item>
+			</NavDropdown>
 		</div>
 	);
 };

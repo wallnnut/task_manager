@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { signIn } from "../../../store/slices/user";
 import { validatorLogin } from "../../../validators/loginSchema";
 import CheckBoxField from "../common/checkBoxField";
 import TextField from "../common/TextField";
 
 const LoginForm = () => {
+	const history = useHistory();
+	const dispatch = useDispatch();
 	const [errors, setErrors] = useState({});
 	const [data, setData] = useState({
 		email: "",
@@ -23,7 +28,9 @@ const LoginForm = () => {
 		e.preventDefault();
 		const isValid = validate();
 		if (!isValid) return;
-		console.log(data);
+		const { email, password } = data;
+		dispatch(signIn({ email, password }));
+		// history.push("/");
 	};
 	useEffect(() => {
 		validate();

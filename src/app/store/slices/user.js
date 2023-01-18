@@ -3,12 +3,19 @@ import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 // import { authErrorGenerator } from "../utils/authErrorGenerator";
 
-const initialState = {
-	user: null,
-	error: null,
-	auth: null,
-	isLoggedIn: false,
-};
+const initialState = localStorageService.getAccessToken()
+	? {
+			user: null,
+			error: null,
+			auth: null,
+			isLoggedIn: true,
+	  }
+	: {
+			user: null,
+			error: null,
+			auth: null,
+			isLoggedIn: false,
+	  };
 
 const usersSlice = createSlice({
 	name: "user",
@@ -76,46 +83,48 @@ export const signUp =
 			dispatch(authRequestFailed(error.message));
 		}
 	};
-	const createUser = (payload) => async (dispatch) => {
+const createUser = (payload) => async (dispatch) => {
 	dispatch(userCreateRequested());
-	console.log(payload)
+	console.log(payload);
 	try {
-		const {content} = await authService.create(payload);
+		const { content } = await authService.create(payload);
 		dispatch(authRequestSuccess(content));
-
 	} catch (error) {
 		dispatch(createUserFailed(error.message));
 	}
 };
 
-// export const signIn =
-// 	({ payload, redirect }) =>
-// 	async (dispatch) => {
-// 		const { email, password } = payload;
-// 		dispatch(authRequested());
-// 		try {
-// 			const data = await authService.login({ email, password });
-// 			dispatch(authRequestSuccess({ userId: data.localId }));
-// 			localStorageService.setToken(data);
-// 			// history.push(redirect);
-// 		} catch (error) {
-// 			const { code, message } = error.response.data.error;
-// 			if (code === 400) {
-// 				// const errorMessage = authErrorGenerator(message);
-// 				// dispatch(authRequestFailed(errorMessage));
-// 			} else {
-// 				dispatch(authRequestFailed(error.message));
-// 			}
-// 		}
-// 	};
+export const signIn =
+	({ email, password }) =>
+	async (dispatch) => {
+		dispatch(authRequested());
+		try {
+			const data = await authService.login({ email, password });
+			dispatch(receiveUserData());
+			localStorageService.setToken(data);
+		} catch (error) {
+			const { code, message } = error.response.data.error;
+			if (code === 400) {
+				// const errorMessage = authErrorGenerator(message);
+				// dispatch(authRequestFailed(errorMessage));
+			} else {
+				dispatch(authRequestFailed(error.message));
+			}
+		}
+	};
+export const receiveUserData = () => async (dispatch) => {
+	try {
+		const { content } = await authService.getCurrentUser();
+		dispatch(authRequestSuccess(content));
+	} catch (error) {
+		dispatch(authRequestFailed(error.message));
+	}
+};
 
-// export const logOut = () => (dispatch) => {
-// 	localStorageService.removeToken();
-// 	dispatch(userLoggedOut());
-// 	// history.push("/");
-// };
-
-
+export const logOut = () => (dispatch) => {
+	localStorageService.removeToken();
+	dispatch(userLoggedOut());
+};
 
 // export const editUser = (data) => async (dispatch) => {
 // 	dispatch(editRequested());
@@ -132,7 +141,8 @@ export const signUp =
 export const getLoggedInStatus = () => (state) => state.user.isLoggedIn;
 export const getDataStatus = () => (state) => state.user.dataLoaded;
 export const getCurrentUserId = () => (state) => state.user.auth.userId;
-export const getCurrentUserData = () => (state) => state.user.auth;
+export const getCurrentUserData = () => (state) =>
+	state.user.user ? state.user.user : null;
 export const getLoginErrors = () => (state) => state.user.error;
 
 export default usersReducer;

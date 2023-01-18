@@ -2,12 +2,14 @@ import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { signUp } from "../../../store/slices/user";
 import { registerSchema } from "../../../validators/registerSchema";
 import CheckBoxField from "../common/checkBoxField";
 import RadioField from "../common/radioField";
 import TextField from "../common/TextField";
 const RegisterForm = () => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState({});
 	const [data, setData] = useState({
@@ -36,6 +38,7 @@ const RegisterForm = () => {
 		const isValid = validate();
 		if (!isValid) return;
 		dispatch(signUp(data));
+		// history.push("/");
 	};
 
 	useEffect(() => {

@@ -15,6 +15,8 @@ import { loadCategorySphere } from "./app/store/slices/categorySphere";
 import { loadPriorities } from "./app/store/slices/priority";
 import Analytics from "./app/layouts/analytics";
 import NavBar from "./app/components/NavBar";
+import { receiveUserData } from "./app/store/slices/user";
+import LogOut from "./app/components/logOut";
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -22,6 +24,7 @@ function App() {
 		dispatch(loadCategorySizes());
 		dispatch(loadCategorySphere());
 		dispatch(loadPriorities());
+		dispatch(receiveUserData());
 	}, []);
 	return (
 		<div className="app">
@@ -36,6 +39,8 @@ function App() {
 						path="/edit/:taskId"
 						component={EditTaskPage}
 					/>
+					<Route path="/logout" component={LogOut} exact />
+
 					<Route exact path="/analytics" component={Analytics} />
 				</Switch>
 			</ModalProvider>
