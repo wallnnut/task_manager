@@ -1,57 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import PriorityMatrix from "../components/priorityMatrix";
 import { getPriorities } from "../store/slices/priority";
 import { getTaskList } from "../store/slices/tasks";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export const data = {
-	labels: ['Лягушек съедено', "Лягушек всего"],
-	datasets: [
-	  {
-		data: [12, 19,],
-		backgroundColor: [
-		  'rgba(255, 99, 132, 0.2)',
-		  'rgba(54, 162, 235, 0.2)',
-		  
-		],
-		borderColor: [
-		  'rgba(255, 99, 132, 1)',
-		  'rgba(54, 162, 235, 1)',
-		  
-		],
-		borderWidth: 1,
-	  },
-	],
-  };
+import TasksList from "../components/tasksList/tasksList";
+import ModalWindow from "../components/ModalWindow";
+import Filters from "../components/filters";
+import useModal from "../hooks/useModal";
+import { Button } from "react-bootstrap";
+import { getSpheres } from "../store/slices/categorySphere";
+import { getSizes } from "../store/slices/categorySize";
 
 const Analytics = () => {
-	const tasks = useSelector(getTaskList())
-	const priorities = useSelector(getPriorities())
+	const tasks = useSelector(getTaskList());
+	const priorities = useSelector(getPriorities());
+	const spheres = useSelector(getSpheres());
+	const sizes = useSelector(getSizes());
+	const { filterModal, setFilterModal } = useModal();
+	const [filter, setFilter] = useState({});
+
+	const onSelect = (choosenCategory) => {
+		setFilter(choosenCategory);
+	};
+
+	const filterTasks = (tasksList) => {
+		const filteredTasks = filter.sphere
+			? tasksList.filter((task) => task.category_sphere === filter.sphere)
+			: filter.size
+			? tasksList.filter((task) => task.category_size === filter.size)
+			: filter.priority
+			? tasksList.filter((task) => task.priority === filter.priority)
+			: tasksList;
+		return filteredTasks;
+	};
+
+	const filteredTasks = filterTasks(tasks);
 
 	return (
-	<>
-	<div>
-	
-	<PriorityMatrix tasks={tasks} priority={priorities}/>
-	<div style={{width: "300px", height: "300px", margin: "0 auto"}}>
-<Doughnut data={data} />
-	</div>
-	</div>
-	
-	<p>Сколько лягушек съедено возможно в граффике</p>
-	<p>Сколько всего выполнено задач за все время в граффике</p>
-	<p>Прожито дней в граффике</p>
-	<p>Список задач с пагницией с отображением сфокусированного времени</p></>)
+		<>
+			<div>
+				<ModalWindow
+					modalHeader="Фильтры"
+					modalBody={
+						<Filters
+							spheres={spheres}
+							sizes={sizes}
+							priorities={priorities}
+							onSelect={onSelect}
+						/>
+					}
+					// modalButton="Установить"
+					show={filterModal}
+					handleClose={() =>
+						setFilterModal((prevState) => !prevState)
+					}
+				/>
+				<div className="d-flex flex-column align-items-end">
+					<Button
+						onClick={() =>
+							setFilterModal((prevState) => !prevState)
+						}
+					>
+						Фильтры
+					</Button>
+					<TasksList
+						tasks={filteredTasks}
+						listForAllProjects={false}
+					/>
+				</div>
+				<PriorityMatrix tasks={tasks} priority={priorities} />
+
+				<div
+					style={{
+						width: "300px",
+						height: "300px",
+						margin: "0 auto",
+					}}
+				></div>
+			</div>
+
+			<p>Сколько лягушек съедено возможно в граффике</p>
+			<p>Сколько всего выполнено задач за все время в граффике</p>
+			<p>Прожито дней в граффике</p>
+		</>
+	);
 };
 
 export default Analytics;
 
-
-{/* <Container className="mt-5">
+{
+	/* <Container className="mt-5">
 			<Row>
 				<Col>
 					<Card className="mb-2">
@@ -66,7 +104,8 @@ export default Analytics;
 						</Card.Body>
 						<Card.Footer>Вcего задач</Card.Footer>
 					</Card>
-				</Col> */}
+				</Col> */
+}
 // 				<Col>
 // 					<Card className="mb-2">
 // 						<Card.Header>Header</Card.Header>

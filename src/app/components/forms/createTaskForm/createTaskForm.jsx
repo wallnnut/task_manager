@@ -9,9 +9,11 @@ import "react-dropdown/style.css";
 import TextField from "../common/TextField";
 import { useDispatch } from "react-redux";
 import { createTask } from "../../../store/slices/tasks";
+import localStorageService from "../../../services/localStorage.service";
 
 const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 	const dispatch = useDispatch();
+	const userId = localStorageService.getUserId();
 	const [data, setData] = useState({
 		title: "",
 		description: "",
@@ -22,6 +24,7 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 		time: "",
 		completed: false,
 		focused_time: 0,
+		userId: userId ? userId : "",
 	});
 	const [errors, setErrors] = useState({});
 	const { setCreateTaskModal } = useModal();

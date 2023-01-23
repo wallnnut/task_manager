@@ -1,6 +1,7 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import taskService from "../../services/task.service";
 import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
 
 const tasksSlice = createSlice({
 	name: "tasks",
@@ -89,6 +90,7 @@ export const createTask = (data) => async (dispatch) => {
 	try {
 		const { content } = await taskService.create(taskToPut);
 		dispatch(taskCreated(content));
+		toast.success("allDone");
 	} catch (error) {
 		dispatch(taskCreateFailed(error.message));
 	}
@@ -118,5 +120,6 @@ export const getTaskList = () => (state) => state.tasks.entities;
 export const getLoadingStatusTasks = () => (state) => state.tasks.isLoading;
 export const getTaskById = (id) => (state) =>
 	state.tasks.entities.find((task) => task._id === id);
+
 
 export default tasksReducer;

@@ -13,12 +13,6 @@ const PriorityMatrix = ({ tasks, priority }) => {
 	const notUrgentNotImportant = priority.find(
 		(p) => p.name === "Несрочные и Неважные"
 	);
-	console.log(
-		urgentImportant,
-		notUrgentImportant,
-		urgentNotImportant,
-		notUrgentNotImportant
-	);
 
 	const urgentImportantTasks = tasks.filter(
 		(task) => task.priority === urgentImportant.name

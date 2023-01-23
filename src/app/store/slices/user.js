@@ -30,10 +30,10 @@ const usersSlice = createSlice({
 		},
 
 		userLoggedOut: (state) => {
-			state.entities = null;
+			state.user = null;
+			state.error = null;
 			state.auth = null;
 			state.isLoggedIn = false;
-			state.dataLoaded = false;
 		},
 		userEdited: (state, action) => {
 			const index = state.entities.findIndex(
@@ -76,6 +76,7 @@ export const signUp =
 				createUser({
 					_id: data.localId,
 					email,
+					completed_tasks: 0,
 					...rest,
 				})
 			);
@@ -115,6 +116,7 @@ export const signIn =
 export const receiveUserData = () => async (dispatch) => {
 	try {
 		const { content } = await authService.getCurrentUser();
+		console.log(content);
 		dispatch(authRequestSuccess(content));
 	} catch (error) {
 		dispatch(authRequestFailed(error.message));

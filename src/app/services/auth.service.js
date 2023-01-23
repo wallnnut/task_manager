@@ -28,7 +28,6 @@ const authService = {
 		return data;
 	},
 	create: async (payload) => {
-		console.log(payload._id);
 		const { data } = await httpService.put(
 			userEndPoint + payload._id,
 			payload

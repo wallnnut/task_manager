@@ -1,13 +1,24 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-const DropDownButton = ({ children, name, onChange, actions }) => {
+const DropDownButton = ({
+	children,
+	name,
+	onChange,
+	actions,
+	bg,
+	className,
+}) => {
 	const handleSelect = ({ target }) => {
 		onChange({ name: target.name, value: target.value });
 	};
 	return (
-		<Dropdown>
-			<Dropdown.Toggle variant="primary" id="dropdown-basic">
+		<Dropdown className={className}>
+			<Dropdown.Toggle
+				className={`d-flex align-items-center bg-${bg}`}
+				variant="primary"
+				id="dropdown-basic"
+			>
 				{children}
 			</Dropdown.Toggle>
 

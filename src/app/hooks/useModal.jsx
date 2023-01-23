@@ -9,6 +9,8 @@ export const useModal = () => {
 export const ModalProvider = ({ children }) => {
 	const [createTaskModal, setCreateTaskModal] = useState(false);
 	const [timerModal, setTimerModal] = useState(false);
+	const [filterModal, setFilterModal] = useState(false);
+
 	return (
 		<ModalContext.Provider
 			value={{
@@ -16,6 +18,8 @@ export const ModalProvider = ({ children }) => {
 				setTimerModal,
 				createTaskModal,
 				setCreateTaskModal,
+				filterModal,
+				setFilterModal,
 			}}
 		>
 			{children}

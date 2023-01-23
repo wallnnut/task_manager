@@ -10,7 +10,7 @@ import Pagination from "./pagination";
 import TaskContainer from "./taskContainer";
 import { paginate } from "../../utils/paginate";
 
-const TasksList = ({ tasks }) => {
+const TasksList = ({ tasks, listForAllProjects }) => {
 	const isLoading = useSelector(getLoadingStatusTasks());
 	const dispatch = useDispatch();
 	const [activePage, setActivePage] = useState(1);
@@ -25,6 +25,7 @@ const TasksList = ({ tasks }) => {
 	const handlePageChange = (pageIndex) => {
 		setActivePage(pageIndex);
 	};
+
 	const userCrop = paginate(tasks, activePage, pageSize);
 	return (
 		<>
@@ -32,6 +33,7 @@ const TasksList = ({ tasks }) => {
 				<Container className="mt-5">
 					{userCrop.map((task) => (
 						<TaskContainer
+							listForAllProjects={listForAllProjects}
 							key={task._id}
 							onComplete={handleComplete}
 							onRemove={handleRemoveTask}
