@@ -12,7 +12,7 @@ const ModalWindow = ({
 	return (
 		<Modal
 			centered
-			size="sm"
+			size="md"
 			aria-labelledby="contained-modal-title-vcenter"
 			show={show}
 			onHide={handleClose}

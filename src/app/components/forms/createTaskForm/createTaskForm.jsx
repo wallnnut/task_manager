@@ -26,6 +26,7 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 		focused_time: 0,
 		userId: userId ? userId : "",
 	});
+	
 	const [errors, setErrors] = useState({});
 	const { setCreateTaskModal } = useModal();
 	const [value, onChange] = useState(new Date());
@@ -41,14 +42,20 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 		}
 	};
 	const handleChange = (target) => {
-		setData((prevState) => ({
-			...prevState,
-			[target.name]: target.value,
-		}));
+		if (target.name === "time") {
+			setData((prevState) => ({
+				...prevState,
+				[target.name]: moment(target.value, "HH:mm").format("x"),
+			}));
+		} else {
+			setData((prevState) => ({
+				...prevState,
+				[target.name]: target.value,
+			}));
+		}
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(data);
 		dispatch(createTask(data));
 	};
 
@@ -104,11 +111,10 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 					<Stack className="mx-auto mb-5">
 						<label className="text-light">Выбирите дату</label>
 						<Calendar
-							onClickDay={() => {
+							onClickDay={(value) => {
 								setData((prevState) => ({
 									...prevState,
-									expires_date:
-										moment(value).format("DD-MM-yyyy"),
+									expires_date: moment(value).format("x"),
 								}));
 								setIsCalendar(false);
 							}}

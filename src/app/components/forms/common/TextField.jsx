@@ -1,9 +1,9 @@
+import moment from "moment/moment";
 import React, { useState } from "react";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 const TextField = ({ label, type, name, value, onChange, error }) => {
 	const [showPassword, setShowPassword] = useState(false);
-
+	const transformedValue = moment(value, "x").format("HH:mm");
 	const handleChange = ({ target }) => {
 		onChange({ name: target.name, value: target.value });
 	};
@@ -24,7 +24,7 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
 					type={showPassword ? "text" : type}
 					id={name}
 					name={name}
-					value={value}
+					value={type === "time" ? transformedValue : value}
 					onChange={handleChange}
 					className={getInputClasses()}
 				/>

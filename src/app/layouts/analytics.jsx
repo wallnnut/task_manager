@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import PriorityMatrix from "../components/priorityMatrix";
 import { getPriorities } from "../store/slices/priority";
 import { getTaskList } from "../store/slices/tasks";
 import TasksList from "../components/tasksList/tasksList";
 import ModalWindow from "../components/ModalWindow";
-import Filters from "../components/filters";
 import useModal from "../hooks/useModal";
 import { Button } from "react-bootstrap";
 import { getSpheres } from "../store/slices/categorySphere";
 import { getSizes } from "../store/slices/categorySize";
+import Filters from "../components/tasksList/filters";
+import PriorityMatrix from "../components/priorityMatrix/priorityMatrix";
 
 const Analytics = () => {
 	const tasks = useSelector(getTaskList());
@@ -18,7 +18,7 @@ const Analytics = () => {
 	const sizes = useSelector(getSizes());
 	const { filterModal, setFilterModal } = useModal();
 	const [filter, setFilter] = useState({});
-
+	console.log(filter);
 	const onSelect = (choosenCategory) => {
 		setFilter(choosenCategory);
 	};
@@ -49,19 +49,21 @@ const Analytics = () => {
 							onSelect={onSelect}
 						/>
 					}
-					// modalButton="Установить"
 					show={filterModal}
 					handleClose={() =>
 						setFilterModal((prevState) => !prevState)
 					}
 				/>
-				<div className="d-flex flex-column align-items-end">
+				<div className="d-flex flex-column align-items-end mt-5">
 					<Button
+						className="mx-5 d-flex align-items-center bg-info"
 						onClick={() =>
 							setFilterModal((prevState) => !prevState)
 						}
+						variant="dark"
 					>
-						Фильтры
+						<span className="mx-3">Фильтры</span>
+						<i className="fs-4 bi bi-filter"></i>
 					</Button>
 					<TasksList
 						tasks={filteredTasks}

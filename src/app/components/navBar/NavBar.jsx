@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavProfile from "./navProfile";
-import { getLoggedInStatus } from "../store/slices/user";
+import { getLoggedInStatus } from "../../store/slices/user";
 
 const NavBar = () => {
 	const isLoggedIn = useSelector(getLoggedInStatus());

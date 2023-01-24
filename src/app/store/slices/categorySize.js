@@ -41,6 +41,8 @@ export const loadCategorySizes = () => async (dispatch) => {
 };
 
 export const getSizes = () => (state) => state.size.entities;
+export const getSizeById = (sizeId) => (state) =>
+	state.size.entities.find((s) => s._id === sizeId);
 
 
 export default categorySizeReducer;

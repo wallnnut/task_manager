@@ -26,12 +26,12 @@ const TasksList = ({ tasks, listForAllProjects }) => {
 		setActivePage(pageIndex);
 	};
 
-	const userCrop = paginate(tasks, activePage, pageSize);
+	const taskCrop = paginate(tasks, activePage, pageSize);
 	return (
 		<>
 			{!isLoading ? (
 				<Container className="mt-5">
-					{userCrop.map((task) => (
+					{taskCrop.map((task) => (
 						<TaskContainer
 							listForAllProjects={listForAllProjects}
 							key={task._id}

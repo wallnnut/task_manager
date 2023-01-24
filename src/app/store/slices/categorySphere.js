@@ -41,5 +41,7 @@ export const loadCategorySphere = () => async (dispatch) => {
 };
 
 export const getSpheres = () => (state) => state.sphere.entities;
+export const getSphereById = (sphereId) => (state) =>
+	state.sphere.entities.find((sph) => sph._id === sphereId);
 
 export default categorySphereReducer;

@@ -38,6 +38,8 @@ export const loadPriorities = () => async (dispatch) => {
 };
 
 export const getPriorities = () => (state) => state.priority.entities;
+export const getPriorityById = (priorityId) => (state) =>
+	state.priority.entities.find((pr) => pr._id === priorityId);
 
 
 export default prioritiesReducer;

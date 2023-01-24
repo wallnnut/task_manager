@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import useModal from "../hooks/useModal";
+import useModal from "../../hooks/useModal";
 const Filters = ({ spheres, sizes, priorities, onSelect }) => {
+	console.log(spheres);
 	const { setFilterModal } = useModal();
 	const handleClick = ({ target }) => {
 		setFilterModal((prevState) => !prevState);
@@ -14,15 +15,16 @@ const Filters = ({ spheres, sizes, priorities, onSelect }) => {
 	return (
 		<Container>
 			<Row>
-				<Col>
-					<div>
+				<Col md={10} className="offset-md-1 ">
+					<div className="mb-4">
 						<h5>Сфера</h5>
 						<hr />
 						<ul>
 							{spheres.map((sphere) => (
 								<li style={{ listStyle: "none" }}>
 									<button
-										value={sphere.name}
+										className="text-light"
+										value={sphere._id}
 										onClick={(e) => handleClick(e)}
 										name="sphere"
 									>
@@ -32,14 +34,15 @@ const Filters = ({ spheres, sizes, priorities, onSelect }) => {
 							))}
 						</ul>
 					</div>
-					<div>
+					<div className="mb-4">
 						<h5>Размер</h5>
 						<hr />
 						<ul>
 							{sizes.map((size) => (
 								<li style={{ listStyle: "none" }}>
 									<button
-										value={size.name}
+										className="text-light"
+										value={size._id}
 										onClick={(e) => handleClick(e)}
 										name="size"
 									>
@@ -50,14 +53,15 @@ const Filters = ({ spheres, sizes, priorities, onSelect }) => {
 						</ul>
 					</div>
 
-					<div>
+					<div className="mb-4">
 						<h5>Приоритет</h5>
 						<hr />
 						<ul>
 							{priorities.map((priority) => (
-								<li style={{ listStyle: "none" }} role="button">
+								<li style={{ listStyle: "none" }}>
 									<button
-										value={priority.name}
+										className="text-light"
+										value={priority._id}
 										onClick={(e) => handleClick(e)}
 										name="priority"
 									>
@@ -66,10 +70,10 @@ const Filters = ({ spheres, sizes, priorities, onSelect }) => {
 								</li>
 							))}
 						</ul>
-						<Button onClick={(e) => handleClick(e)}>
-							Сбросить фильтр
-						</Button>
 					</div>
+					<Button className="w-100" onClick={(e) => handleClick(e)}>
+						Сбросить фильтр
+					</Button>
 				</Col>
 			</Row>
 		</Container>

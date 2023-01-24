@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCurrentUserData } from "../store/slices/user";
+import { getCurrentUserData } from "../../store/slices/user";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 const NavProfile = () => {

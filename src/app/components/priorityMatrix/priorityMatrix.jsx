@@ -3,6 +3,7 @@ import PriorityContainer from "./priorityContainer";
 import { Col, Container, Row } from "react-bootstrap";
 
 const PriorityMatrix = ({ tasks, priority }) => {
+	console.log(priority);
 	const urgentImportant = priority.find((p) => p.name === "Срочные и Важные");
 	const notUrgentImportant = priority.find(
 		(p) => p.name === "Несрочные и важные"
@@ -15,18 +16,17 @@ const PriorityMatrix = ({ tasks, priority }) => {
 	);
 
 	const urgentImportantTasks = tasks.filter(
-		(task) => task.priority === urgentImportant.name
+		(task) => task.priority === urgentImportant._id
 	);
 	const notUrgentImportantTasks = tasks.filter(
-		(task) => task.priority === notUrgentImportant.name
+		(task) => task.priority === notUrgentImportant._id
 	);
 	const urgentNotImportantTasks = tasks.filter(
-		(task) => task.priority === urgentNotImportant.name
+		(task) => task.priority === urgentNotImportant._id
 	);
 	const notUrgentNotImportantTasks = tasks.filter(
-		(task) => task.priority === notUrgentNotImportant.name
+		(task) => task.priority === notUrgentNotImportant._id
 	);
-
 	return (
 		<Container className="mt-5">
 			<h3 className="mb-4">Матрица Эйзенхауэра</h3>

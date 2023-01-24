@@ -32,7 +32,7 @@ const DropDownButton = ({
 								onClick={handleSelect}
 								key={act._id}
 								name={name}
-								value={act.name}
+								value={act._id}
 							>
 								{act.name}
 							</Dropdown.Item>

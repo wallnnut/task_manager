@@ -11,6 +11,7 @@ import {
 	getTaskList,
 } from "../store/slices/tasks";
 import CountDown from "../components/timer/timer";
+import { toast } from "react-toastify";
 
 const Main = () => {
 	const dispatch = useDispatch();
@@ -90,7 +91,7 @@ const Main = () => {
 		setPaused(true);
 		setTime([0, 0, 0]);
 		const currentTask = tasks.find((task) => task._id === data.tasks);
-		console.log(currentTask);
+		toast.success("Вы завершили задачу");
 		dispatch(
 			editTask({
 				_id: data.tasks,

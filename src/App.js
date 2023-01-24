@@ -13,14 +13,14 @@ import { loadCategorySizes } from "./app/store/slices/categorySize";
 import { loadCategorySphere } from "./app/store/slices/categorySphere";
 import { loadPriorities } from "./app/store/slices/priority";
 import Analytics from "./app/layouts/analytics";
-import NavBar from "./app/components/NavBar";
 import { receiveUserData } from "./app/store/slices/user";
 import LogOut from "./app/components/logOut";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./app/components/protectedRoute";
 import EditUserPage from "./app/components/editUserPage";
-
+import "react-toastify/dist/ReactToastify.css";
+import NavBar from "./app/components/navBar/NavBar";
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -60,7 +60,7 @@ function App() {
 					<Route path="/logout" component={LogOut} exact />
 				</Switch>
 			</ModalProvider>
-			<ToastContainer />
+			<ToastContainer theme="dark" />
 		</div>
 	);
 }
