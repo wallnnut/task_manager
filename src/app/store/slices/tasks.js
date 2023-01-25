@@ -10,6 +10,7 @@ const tasksSlice = createSlice({
 		isLoading: true,
 		error: null,
 		lastFetch: null,
+		dataLoaded: false,
 	},
 	reducers: {
 		tasksRequested: (state) => {
@@ -18,6 +19,7 @@ const tasksSlice = createSlice({
 		tasksReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = action.payload;
+			state.dataLoaded = true;
 			state.lastFetch = Date.now();
 		},
 		tasksRequestFailed: (state, action) => {
@@ -120,6 +122,7 @@ export const getTaskList = () => (state) => state.tasks.entities;
 export const getLoadingStatusTasks = () => (state) => state.tasks.isLoading;
 export const getTaskById = (id) => (state) =>
 	state.tasks.entities.find((task) => task._id === id);
+export const getTasksExistStatus = () => (state) => state.tasks.dataLoaded;
 
 
 export default tasksReducer;

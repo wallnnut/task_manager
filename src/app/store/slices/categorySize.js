@@ -5,8 +5,9 @@ const categorySizeSlice = createSlice({
 	name: "categorySize",
 	initialState: {
 		entities: null,
-		isLoading: null,
+		isLoading: true,
 		error: null,
+		dataLoaded: false,
 	},
 	reducers: {
 		categorySizesRequested: (state) => {
@@ -15,6 +16,7 @@ const categorySizeSlice = createSlice({
 		categorySizesReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = action.payload;
+			state.dataLoaded = true;
 		},
 		categorySizesRequestFailed: (state, action) => {
 			state.error = action.payload;
@@ -43,6 +45,9 @@ export const loadCategorySizes = () => async (dispatch) => {
 export const getSizes = () => (state) => state.size.entities;
 export const getSizeById = (sizeId) => (state) =>
 	state.size.entities.find((s) => s._id === sizeId);
+export const getLoadingStatusSize = () => (state) => state.size.isLoading;
+export const getSizeExistStatus = () => (state) => state.size.dataLoaded;
+
 
 
 export default categorySizeReducer;

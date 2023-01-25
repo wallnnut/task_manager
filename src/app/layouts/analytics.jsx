@@ -10,6 +10,7 @@ import { getSpheres } from "../store/slices/categorySphere";
 import { getSizes } from "../store/slices/categorySize";
 import Filters from "../components/tasksList/filters";
 import PriorityMatrix from "../components/priorityMatrix/priorityMatrix";
+import DataLoader from "../components/hoc/dataLoader";
 
 const Analytics = () => {
 	const tasks = useSelector(getTaskList());
@@ -38,48 +39,50 @@ const Analytics = () => {
 
 	return (
 		<>
-			<div>
-				<ModalWindow
-					modalHeader="Фильтры"
-					modalBody={
-						<Filters
-							spheres={spheres}
-							sizes={sizes}
-							priorities={priorities}
-							onSelect={onSelect}
-						/>
-					}
-					show={filterModal}
-					handleClose={() =>
-						setFilterModal((prevState) => !prevState)
-					}
-				/>
-				<div className="d-flex flex-column align-items-end mt-5">
-					<Button
-						className="mx-5 d-flex align-items-center bg-info"
-						onClick={() =>
+			<DataLoader>
+				<div>
+					<ModalWindow
+						modalHeader="Фильтры"
+						modalBody={
+							<Filters
+								spheres={spheres}
+								sizes={sizes}
+								priorities={priorities}
+								onSelect={onSelect}
+							/>
+						}
+						show={filterModal}
+						handleClose={() =>
 							setFilterModal((prevState) => !prevState)
 						}
-						variant="dark"
-					>
-						<span className="mx-3">Фильтры</span>
-						<i className="fs-4 bi bi-filter"></i>
-					</Button>
-					<TasksList
-						tasks={filteredTasks}
-						listForAllProjects={false}
 					/>
-				</div>
-				<PriorityMatrix tasks={tasks} priority={priorities} />
+					<div className="d-flex flex-column align-items-end mt-5">
+						<Button
+							className="mx-5 d-flex align-items-center bg-info"
+							onClick={() =>
+								setFilterModal((prevState) => !prevState)
+							}
+							variant="dark"
+						>
+							<span className="mx-3">Фильтры</span>
+							<i className="fs-4 bi bi-filter"></i>
+						</Button>
+						<TasksList
+							tasks={filteredTasks}
+							listForAllProjects={false}
+						/>
+					</div>
+					<PriorityMatrix tasks={tasks} priority={priorities} />
 
-				<div
-					style={{
-						width: "300px",
-						height: "300px",
-						margin: "0 auto",
-					}}
-				></div>
-			</div>
+					<div
+						style={{
+							width: "300px",
+							height: "300px",
+							margin: "0 auto",
+						}}
+					></div>
+				</div>
+			</DataLoader>
 
 			<p>Сколько лягушек съедено возможно в граффике</p>
 			<p>Сколько всего выполнено задач за все время в граффике</p>

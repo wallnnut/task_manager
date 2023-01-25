@@ -5,8 +5,9 @@ const categorySphereSlice = createSlice({
 	name: "categorySphere",
 	initialState: {
 		entities: null,
-		isLoading: null,
+		isLoading: true,
 		error: null,
+		dataLoaded: false,
 	},
 	reducers: {
 		categorySphereRequested: (state) => {
@@ -15,6 +16,7 @@ const categorySphereSlice = createSlice({
 		categorySphereReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = action.payload;
+			state.dataLoaded = true;
 		},
 		categorySphereRequestFailed: (state, action) => {
 			state.error = action.payload;
@@ -43,5 +45,8 @@ export const loadCategorySphere = () => async (dispatch) => {
 export const getSpheres = () => (state) => state.sphere.entities;
 export const getSphereById = (sphereId) => (state) =>
 	state.sphere.entities.find((sph) => sph._id === sphereId);
+export const getLoadingStatusSphere = () => (state) => state.sphere.isLoading;
+export const getSphereExistStatus = () => (state) => state.sphere.dataLoaded;
+
 
 export default categorySphereReducer;

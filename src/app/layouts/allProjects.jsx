@@ -11,6 +11,7 @@ import TasksList from "../components/tasksList/tasksList";
 import CreateTaskForm from "../components/forms/createTaskForm/createTaskForm";
 import { useParams } from "react-router-dom";
 import EditTaskPage from "./editTaskPage";
+import DataLoader from "../components/hoc/dataLoader";
 const AllProjects = () => {
 	const tasks = useSelector(getTaskList());
 	const sphere = useSelector(getSpheres());
@@ -20,49 +21,54 @@ const AllProjects = () => {
 	const { taskId } = useParams();
 	return (
 		<>
-			{taskId ? (
-				<EditTaskPage />
-			) : (
-				<>
-					<Container className="mt-4 d-flex justify-content-between  ">
-						<h2>Все проекты</h2>
-						<Button
-							onClick={() => setCreateTaskModal(true)}
-							className="d-flex align-items-center"
-							variant="warning"
-						>
-							<span className="fs-5">Создать</span>
-							<i className="bi bi-plus fs-3"></i>
-						</Button>
-					</Container>
-					<Modal
-						contentClassName="bg-dark"
-						show={createTaskModal}
-						onHide={() =>
-							setCreateTaskModal((prevState) => !prevState)
-						}
-						size="lg"
-						aria-labelledby="contained-modal-title-vcenter"
-						centered
-					>
-						<Modal.Header closeButton closeVariant="white">
-							<h3 className=" text-lg text-center text-light">
-								Создать задачу
-							</h3>
-						</Modal.Header>
-						<Container>
-							<CreateTaskForm
-								sizes={size}
-								priorities={priority}
-								spheres={sphere}
-							/>
+			<DataLoader>
+				{taskId ? (
+					<EditTaskPage />
+				) : (
+					<>
+						<Container className="mt-4 d-flex justify-content-between  ">
+							<h2>Все проекты</h2>
+							<Button
+								onClick={() => setCreateTaskModal(true)}
+								className="d-flex align-items-center"
+								variant="warning"
+							>
+								<span className="fs-5">Создать</span>
+								<i className="bi bi-plus fs-3"></i>
+							</Button>
 						</Container>
-					</Modal>
-					{tasks && (
-						<TasksList listForAllProjects={true} tasks={tasks} />
-					)}
-				</>
-			)}
+						<Modal
+							contentClassName="bg-dark"
+							show={createTaskModal}
+							onHide={() =>
+								setCreateTaskModal((prevState) => !prevState)
+							}
+							size="lg"
+							aria-labelledby="contained-modal-title-vcenter"
+							centered
+						>
+							<Modal.Header closeButton closeVariant="white">
+								<h3 className=" text-lg text-center text-light">
+									Создать задачу
+								</h3>
+							</Modal.Header>
+							<Container>
+								<CreateTaskForm
+									sizes={size}
+									priorities={priority}
+									spheres={sphere}
+								/>
+							</Container>
+						</Modal>
+						{tasks && (
+							<TasksList
+								listForAllProjects={true}
+								tasks={tasks}
+							/>
+						)}
+					</>
+				)}
+			</DataLoader>
 		</>
 	);
 };

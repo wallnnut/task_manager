@@ -5,8 +5,9 @@ const prioritySlice = createSlice({
 	name: "priorities",
 	initialState: {
 		entities: null,
-		isLoading: null,
+		isLoading: true,
 		error: null,
+		dataLoaded: false,
 	},
 	reducers: {
 		prioritiesRequested: (state) => {
@@ -15,6 +16,7 @@ const prioritySlice = createSlice({
 		prioritiesReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = action.payload;
+			state.dataLoaded = true;
 		},
 		prioritiesRequestFailed: (state, action) => {
 			state.error = action.payload;
@@ -40,6 +42,11 @@ export const loadPriorities = () => async (dispatch) => {
 export const getPriorities = () => (state) => state.priority.entities;
 export const getPriorityById = (priorityId) => (state) =>
 	state.priority.entities.find((pr) => pr._id === priorityId);
+export const getLoadingStatusPriorities = () => (state) =>
+	state.priority.isLoading;
+export const getPriorityExistStatus = () => (state) =>
+	state.priority.dataLoaded;
+
 
 
 export default prioritiesReducer;
