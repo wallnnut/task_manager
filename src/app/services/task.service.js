@@ -1,4 +1,5 @@
 import httpService from "./http.service";
+import localStorageService from "./localStorage.service";
 
 const taskEndPoint = "tasks/";
 
@@ -8,17 +9,23 @@ const taskService = {
 		return data;
 	},
 	create: async (payload) => {
-		const {data} = await httpService.put(taskEndPoint+payload._id, payload)
-		return data
+		const { data } = await httpService.put(
+			taskEndPoint + payload._id,
+			payload
+		);
+		return data;
 	},
 	remove: async (taskId) => {
-		const {data} = await httpService.delete(taskEndPoint+taskId)
+		const { data } = await httpService.delete(taskEndPoint + taskId);
 		return data;
 	},
 	edit: async (payload) => {
-const {data} = await httpService.edit(taskEndPoint+payload._id, payload)
-return data
-	}
+		const { data } = await httpService.edit(
+			taskEndPoint + payload._id,
+			payload
+		);
+		return data;
+	},
 };
 
 export default taskService;

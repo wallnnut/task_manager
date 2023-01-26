@@ -10,6 +10,7 @@ const DropDownButton = ({
 	className,
 }) => {
 	const handleSelect = ({ target }) => {
+		console.log(target);
 		onChange({ name: target.name, value: target.value });
 	};
 	return (
@@ -31,6 +32,7 @@ const DropDownButton = ({
 								type="button"
 								onClick={handleSelect}
 								key={act._id}
+								eventKey={name}
 								name={name}
 								value={act._id}
 							>

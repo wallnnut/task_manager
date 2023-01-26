@@ -2,6 +2,9 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import taskService from "../../services/task.service";
 import { nanoid } from "nanoid";
 import { toast } from "react-toastify";
+import localStorageService from "../../services/localStorage.service";
+
+const userId = localStorageService.getUserId();
 
 const tasksSlice = createSlice({
 	name: "tasks",
@@ -18,7 +21,9 @@ const tasksSlice = createSlice({
 		},
 		tasksReceived: (state, action) => {
 			state.isLoading = false;
-			state.entities = action.payload;
+			state.entities = action.payload.filter((task) => {
+				return task.userId === localStorageService.getUserId();
+			});
 			state.dataLoaded = true;
 			state.lastFetch = Date.now();
 		},
@@ -88,6 +93,7 @@ export const createTask = (data) => async (dispatch) => {
 		...data,
 		_id: nanoid(),
 		created_at: Date.now(),
+		userId: userId,
 	};
 	try {
 		const { content } = await taskService.create(taskToPut);

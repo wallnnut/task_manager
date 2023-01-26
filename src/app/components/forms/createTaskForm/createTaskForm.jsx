@@ -24,9 +24,8 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 		time: "",
 		completed: false,
 		focused_time: 0,
-		userId: userId ? userId : "",
 	});
-	
+
 	const [errors, setErrors] = useState({});
 	const { setCreateTaskModal } = useModal();
 	const [value, onChange] = useState(new Date());
@@ -42,6 +41,7 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 		}
 	};
 	const handleChange = (target) => {
+		console.log(target);
 		if (target.name === "time") {
 			setData((prevState) => ({
 				...prevState,

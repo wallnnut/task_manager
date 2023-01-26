@@ -17,7 +17,7 @@ const Loader = ({ children }) => {
 		dispatch(loadCategorySizes());
 		dispatch(loadCategorySphere());
 		dispatch(loadPriorities());
-		dispatch(receiveUserData());
+		if (loggedInStatus) dispatch(receiveUserData());
 	}, [loggedInStatus]);
 	return (
 		<div>

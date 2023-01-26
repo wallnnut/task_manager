@@ -30,7 +30,7 @@ const LoginForm = () => {
 		if (!isValid) return;
 		const { email, password } = data;
 		dispatch(signIn({ email, password }));
-		// history.push("/");
+		history.push("/");
 	};
 	useEffect(() => {
 		validate();
