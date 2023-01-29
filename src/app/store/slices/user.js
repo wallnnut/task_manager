@@ -71,6 +71,7 @@ export const signUp =
 		dispatch(authRequested());
 		try {
 			const data = await authService.register({ email, password });
+			console.log(data);
 			localStorageService.setToken(data);
 			dispatch(
 				createUser({
@@ -116,12 +117,31 @@ export const signIn =
 export const receiveUserData = () => async (dispatch) => {
 	try {
 		const { content } = await authService.getCurrentUser();
-		console.log(content);
 		dispatch(authRequestSuccess(content));
 	} catch (error) {
 		dispatch(authRequestFailed(error.message));
 	}
 };
+export const editUserData = (payload) => async (dispatch) => {
+	try {
+		const { content } = await authService.edit(payload);
+	} catch (error) {
+		console.log(error);
+	}
+};
+export const editUserEmail =
+	({ email }) =>
+	async (dispatch) => {
+		try {
+			const data = await authService.editEmail({ email });
+			localStorageService.setToken(data);
+			console.log(data);
+
+			dispatch(editUserData({ email }));
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 export const logOut = () => (dispatch) => {
 	localStorageService.removeToken();

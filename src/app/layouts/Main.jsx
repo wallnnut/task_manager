@@ -12,6 +12,8 @@ import {
 } from "../store/slices/tasks";
 import CountDown from "../components/timer/timer";
 import { toast } from "react-toastify";
+import { Form } from "react-bootstrap";
+import moment from "moment/moment";
 
 const Main = () => {
 	const dispatch = useDispatch();
@@ -144,7 +146,19 @@ const Main = () => {
 								onChange={handleChange}
 								value={data.tasks}
 							/>
-							<textarea rows="4" cols="30" name="text"></textarea>
+							<Form>
+								<Form.Group
+									className="mb-3"
+									controlId="exampleForm.ControlTextarea1"
+								>
+									<Form.Label>Добавьте описание</Form.Label>
+									<Form.Control
+										style={{ backgroundColor: "#2b3035" }}
+										as="textarea"
+										rows={3}
+									/>
+								</Form.Group>
+							</Form>
 						</div>
 					</div>
 				</div>

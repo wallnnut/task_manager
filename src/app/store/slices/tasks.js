@@ -104,6 +104,7 @@ export const createTask = (data) => async (dispatch) => {
 	}
 };
 
+
 export const removeTask = (taskId) => async (dispatch) => {
 	dispatch(taskDeleteRequested());
 	try {
@@ -117,11 +118,13 @@ export const removeTask = (taskId) => async (dispatch) => {
 };
 export const editTask = (data) => async (dispatch) => {
 	dispatch(taskEditRequested());
-
 	try {
 		const { content } = await taskService.edit(data);
-		dispatch(taskEdited(content));
-	} catch (error) {}
+		console.log(content);
+		// dispatch(taskEdited(content));
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export const getTaskList = () => (state) => state.tasks.entities;

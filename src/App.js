@@ -14,7 +14,6 @@ import EditUserPage from "./app/components/editUserPage";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./app/components/navBar/NavBar";
 import Loader from "./app/components/hoc/Loader";
-import { Container } from "react-bootstrap";
 
 function App() {
 	return (
@@ -27,7 +26,7 @@ function App() {
 						<Route exact path="/login" component={RegisterLogin} />
 						<ProtectedRoute
 							exact
-							path="/projects/:taskId?"
+							path="/projects/:taskId?/:edit?"
 							component={AllProjects}
 						/>
 						<ProtectedRoute
@@ -37,14 +36,10 @@ function App() {
 						/>
 						<ProtectedRoute
 							exact
-							path="/users/:userId?"
+							path="/profile"
 							component={EditUserPage}
 						/>
-						{/* <Route
-						exact
-						path="/edit/:taskId"
-						component={EditTaskPage}
-					/> */}
+
 						<Route path="/logout" component={LogOut} exact />
 					</Switch>
 				</ModalProvider>

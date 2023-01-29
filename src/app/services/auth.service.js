@@ -28,7 +28,6 @@ const authService = {
 		return data;
 	},
 	create: async (payload) => {
-		console.log(payload);
 		const { data } = await httpService.put(
 			userEndPoint + payload._id,
 			payload
@@ -36,11 +35,22 @@ const authService = {
 		return data;
 	},
 	edit: async (payload) => {
-		const { data } = await httpService.patch(
+		console.log(payload);
+
+		const { data } = await httpService.edit(
 			userEndPoint + localStorageService.getUserId(),
 			payload
 		);
 
+		return data;
+	},
+	editEmail: async ({ email }) => {
+		const { data } = await httpAuth.post("accounts:update", {
+			idToken: localStorageService.getAccessToken(),
+			email,
+			returnSecureToken: true,
+		});
+		console.log(data);
 		return data;
 	},
 	getCurrentUser: async () => {

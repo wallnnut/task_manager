@@ -26,7 +26,11 @@ const AllProjects = () => {
 		<>
 			<DataLoader>
 				{taskId ? (
-					<EditTaskPage />
+					<EditTaskPage
+						sizes={size}
+						priorities={priority}
+						spheres={sphere}
+					/>
 				) : (
 					<>
 						<Container className="mt-4 d-flex justify-content-between  ">

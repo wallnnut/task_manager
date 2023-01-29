@@ -15,7 +15,7 @@ const RegisterForm = () => {
 	const [data, setData] = useState({
 		email: "",
 		password: "",
-		birthDate: moment().format("yyyy-MM-DD"),
+		birthDate: "",
 		name: "",
 		sex: "male",
 		license: false,
@@ -27,10 +27,17 @@ const RegisterForm = () => {
 	];
 
 	const handleChange = (target) => {
-		setData((prevState) => ({
-			...prevState,
-			[target.name]: target.value,
-		}));
+		if (target.name === "birthDate") {
+			setData((prevState) => ({
+				...prevState,
+				[target.name]: moment(target.value, "yyyy-MM-DD").format("x"),
+			}));
+		} else {
+			setData((prevState) => ({
+				...prevState,
+				[target.name]: target.value,
+			}));
+		}
 	};
 	const isValid = Object.keys(errors).length === 0;
 	const handleSubmit = (e) => {
@@ -38,7 +45,7 @@ const RegisterForm = () => {
 		const isValid = validate();
 		if (!isValid) return;
 		dispatch(signUp(data));
-		// history.push("/");
+		history.push("/");
 	};
 
 	useEffect(() => {

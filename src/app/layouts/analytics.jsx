@@ -11,6 +11,7 @@ import { getSizes } from "../store/slices/categorySize";
 import Filters from "../components/tasksList/filters";
 import PriorityMatrix from "../components/priorityMatrix/priorityMatrix";
 import DataLoader from "../components/hoc/dataLoader";
+import CompletedTasks from "../components/taskCompleted";
 
 const Analytics = () => {
 	const tasks = useSelector(getTaskList());
@@ -19,7 +20,6 @@ const Analytics = () => {
 	const sizes = useSelector(getSizes());
 	const { filterModal, setFilterModal } = useModal();
 	const [filter, setFilter] = useState({});
-	console.log(filter);
 	const onSelect = (choosenCategory) => {
 		setFilter(choosenCategory);
 	};
@@ -76,16 +76,21 @@ const Analytics = () => {
 
 					<div
 						style={{
-							width: "300px",
 							height: "300px",
 							margin: "0 auto",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							marginTop: "20px",
+							padding: "10px",
 						}}
-					></div>
+					>
+						<h3>Статистика выполнения задач</h3>
+						<CompletedTasks />
+					</div>
 				</div>
 			</DataLoader>
 
-			<p>Сколько лягушек съедено возможно в граффике</p>
-			<p>Сколько всего выполнено задач за все время в граффике</p>
 			<p>Прожито дней в граффике</p>
 		</>
 	);

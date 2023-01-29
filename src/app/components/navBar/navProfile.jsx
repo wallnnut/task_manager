@@ -19,11 +19,12 @@ const NavProfile = () => {
 				id="nav-dropdown-dark-example"
 				title={currentUser.name}
 				menuVariant="dark"
+				as="div"
 			>
-				<NavDropdown.Item href="#action/3.1">
-					<Link to={`/users/${currentUser._id}`}>Profile</Link>
+				<NavDropdown.Item as="div">
+					<Link to="/profile">Profile</Link>
 				</NavDropdown.Item>
-				<NavDropdown.Item href="#action/3.2">
+				<NavDropdown.Item as="div">
 					<Link to="/logout">Log out</Link>
 				</NavDropdown.Item>
 			</NavDropdown>

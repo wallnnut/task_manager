@@ -11,10 +11,9 @@ http.interceptors.request.use(
 		if (configFile.isFireBase) {
 			const containSlash = / \/$ /gi.test(config.url);
 			config.url =
-				(!containSlash
+				(containSlash
 					? (config.url = config.url.slice(0, -1))
 					: config.url) + ".json";
-					console.log(config.url);
 			const expiresDate = localStorageService.getExpires();
 			const refreshToken = localStorageService.getRefreshToken();
 			if (refreshToken && expiresDate < Date.now()) {

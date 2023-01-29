@@ -1,9 +1,13 @@
-import moment from "moment/moment";
+import moment from "moment";
 import React, { useState } from "react";
 
 const TextField = ({ label, type, name, value, onChange, error }) => {
 	const [showPassword, setShowPassword] = useState(false);
-	const transformedValue = moment(value, "x").format("HH:mm");
+	const valueTransformedToHoursAndMinutes = moment(value, "x").format(
+		"HH:mm"
+	);
+	const valueTransformedToYYYYMMDD = moment(value, "x").format("yyyy-MM-DD");
+
 	const handleChange = ({ target }) => {
 		onChange({ name: target.name, value: target.value });
 	};
@@ -24,7 +28,13 @@ const TextField = ({ label, type, name, value, onChange, error }) => {
 					type={showPassword ? "text" : type}
 					id={name}
 					name={name}
-					value={type === "time" ? transformedValue : value}
+					value={
+						type === "time"
+							? valueTransformedToHoursAndMinutes
+							: type === "date"
+							? valueTransformedToYYYYMMDD
+							: value
+					}
 					onChange={handleChange}
 					className={getInputClasses()}
 				/>

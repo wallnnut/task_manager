@@ -4,6 +4,7 @@ const EXPIRES_KEY = "jwt-expires";
 const USERID_KEY = "user_local_id";
 
 export function setToken({ refreshToken, idToken, localId, expiresIn = 3600 }) {
+    console.log(refreshToken, idToken, localId);
     const expiresDate = new Date().getTime() + expiresIn * 1000;
     localStorage.setItem(USERID_KEY, localId);
     localStorage.setItem(TOKEN_KEY, idToken);

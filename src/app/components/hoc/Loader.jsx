@@ -13,11 +13,12 @@ const Loader = ({ children }) => {
 	const tasksIsLoaded = useSelector(getLoadingStatusTasks());
 
 	useEffect(() => {
+		if (loggedInStatus) dispatch(receiveUserData());
+
 		dispatch(loadTaskList());
 		dispatch(loadCategorySizes());
 		dispatch(loadCategorySphere());
 		dispatch(loadPriorities());
-		if (loggedInStatus) dispatch(receiveUserData());
 	}, [loggedInStatus]);
 	return (
 		<div>

@@ -80,8 +80,24 @@ const CreateTaskForm = ({ spheres, sizes, priorities }) => {
 				direction="horizontal"
 				gap={2}
 			>
-				<Button name="calendar" onClick={handleClick}>
-					<i className="bi bi-calendar"></i>
+				<Button
+					style={{ position: "relative" }}
+					name="calendar"
+					onClick={handleClick}
+				>
+					<i className="bi bi-calendar fs-5"></i>
+					{data.expires_date !== "" && (
+						<span
+							style={{
+								position: "absolute",
+								top: "30%",
+								fontSize: "13px",
+								left: "33.5%",
+							}}
+						>
+							{moment(data.expires_date, "x").format("DD")}
+						</span>
+					)}
 				</Button>
 				<Button name="alarm" onClick={handleClick}>
 					<i className="bi bi-alarm"></i>

@@ -1,5 +1,5 @@
 .react-calendar {
-    width: 600px;
+    width: inherit;
     max-width: 100%;
     background:rgb(52,58,64);
     border: 1px solid #a0a096;

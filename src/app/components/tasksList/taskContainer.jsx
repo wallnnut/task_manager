@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { Badge, Button, Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -28,7 +29,7 @@ const TaskContainer = ({ task, onRemove, onComplete, listForAllProjects }) => {
 						mb="0"
 					/>
 				)}
-				<Link to={`projects/${task._id}`}>{task.title}</Link>
+				<span>{task.title}</span>
 			</Col>
 			<Col>
 				<Badge>{sphere.name}</Badge>
@@ -48,14 +49,18 @@ const TaskContainer = ({ task, onRemove, onComplete, listForAllProjects }) => {
 							<i className="bi bi-trash3 fs-5"></i>
 						</Button>
 						<Button
-							onClick={() => history.push(`/${task._id}/edit`)}
+							onClick={() =>
+								history.push(`projects/${task._id}/edit`)
+							}
 							className="ms-2 me-3"
 						>
 							<i className="bi bi-pencil fs-5"></i>
 						</Button>
 					</>
 				) : (
-					<p>{task.focused_time} секунд</p>
+					<span style={{ fontSize: "18px" }}>
+						{moment(task.focused_time, "ss").format("HH:mm:ss")}
+					</span>
 				)}
 			</Col>
 		</Row>

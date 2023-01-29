@@ -9,7 +9,6 @@ import { getLoggedInStatus } from "../../store/slices/user";
 
 const NavBar = () => {
 	const isLoggedIn = useSelector(getLoggedInStatus());
-	console.log(isLoggedIn);
 	return (
 		<>
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
