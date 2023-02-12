@@ -29,7 +29,7 @@ const CompletedTasks = () => {
 	return (
 		<div
 			style={{
-				height: "300px",
+				maxHeight: "400px",
 				margin: "0 auto",
 				display: "flex",
 				flexDirection: "column",
@@ -38,7 +38,6 @@ const CompletedTasks = () => {
 				padding: "10px",
 			}}
 		>
-			<h3>Статистика выполнения задач</h3>
 			<Doughnut data={data} />
 		</div>
 	);

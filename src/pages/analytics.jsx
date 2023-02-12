@@ -6,6 +6,7 @@ import Filters from "../modules/filterModalForm/filters";
 import PriorityMatrix from "../modules/priorityMatrix/priorityMatrix";
 import DataLoader from "../hoc/dataLoader";
 import CompletedTasks from "../modules/CompletedInChart/taskCompleted";
+import { Container, Stack } from "react-bootstrap";
 
 const Analytics = () => {
 	const tasks = useSelector(getTaskList());
@@ -29,10 +30,17 @@ const Analytics = () => {
 
 	return (
 		<DataLoader>
-			<Filters onSelect={onSelect} />
-			<TasksList tasks={filteredTasks} listForAllProjects={false} />
-			<PriorityMatrix />
-			<CompletedTasks />
+			<Container>
+				<Filters onSelect={onSelect} />
+				<TasksList tasks={filteredTasks} listForAllProjects={false} />
+				<PriorityMatrix />
+				<Stack className="col-md-5 mx-auto mt-4">
+					<h3 style={{ textAlign: "center" }}>
+						Статистика выполнения задач
+					</h3>
+					<CompletedTasks />
+				</Stack>
+			</Container>
 		</DataLoader>
 	);
 };

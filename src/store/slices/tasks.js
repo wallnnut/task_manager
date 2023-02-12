@@ -84,9 +84,10 @@ export const loadTaskList = () => async (dispatch) => {
 		} catch (error) {
 			dispatch(tasksRequestFailed(error.message));
 		}
-	} else {
-		dispatch(tasksReceived([]));
 	}
+	// else {
+	// 	dispatch(tasksReceived([]));
+	// }
 };
 
 export const createTask = (data) => async (dispatch) => {

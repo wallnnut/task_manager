@@ -2,10 +2,6 @@ import moment from "moment";
 import * as yup from "yup";
 
 export const editSchema = yup.object().shape({
-	license: yup
-		.boolean()
-		.required("Подтвердите условия использования")
-		.oneOf([true], "Подтвердите условия использования"),
 	birthDate: yup
 		.number()
 		.required("Дата рождения обязательна для запаолнения")
@@ -17,19 +13,6 @@ export const editSchema = yup.object().shape({
 			moment().valueOf(),
 			"Дата рождения не можеть быть больше текущей даты"
 		),
-	password: yup
-		.string()
-		.required("Пароль обязателен для заполнения")
-		.matches(/(?=.*[0-9])/, "Пароль должен содержать хотябы одну цифру")
-		.matches(
-			/(?=.*[!@#$%^&*])/,
-			"Пароль должен содержать один из символов !@#$%^&*"
-		)
-		.matches(
-			/(?=.*[A-Z])/,
-			"Пароль должен состоять хотябы из одной заглавной буквы"
-		)
-		.min(8, "Пароль не должен быть менее 8 символов"),
 
 	name: yup
 		.string()

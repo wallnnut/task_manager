@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	editUserData,
-	editUserEmail,
-	getCurrentUserData,
-} from "../../store/slices/user";
+import { editUserData, getCurrentUserData } from "../../store/slices/user";
 import { TextField, RadioField } from "components";
 import { editSchema } from "./validators/editSchema";
 const EditUserForm = () => {
@@ -48,11 +44,8 @@ const EditUserForm = () => {
 		if (!isValid) return;
 
 		const { email, birthDate, name, sex } = data;
-		if (currentUser.email !== data.email) {
-			dispatch(editUserEmail({ email }));
-			dispatch(editUserData({ birthDate, name, sex, email }));
-		}
-		dispatch(editUserData({ birthDate, name, sex }));
+
+		dispatch(editUserData({ birthDate, name, sex, email }));
 	};
 
 	useEffect(() => {

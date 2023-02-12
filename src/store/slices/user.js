@@ -59,7 +59,8 @@ export const signUp = (payload) => async (dispatch) => {
 	try {
 		const data = await authService.register(payload);
 		localStorageService.setToken(data);
-		dispatch(receiveUserData());
+		await dispatch(receiveUserData());
+		history.push("/");
 	} catch (error) {
 		dispatch(authRequestFailed(error.message));
 	}
@@ -72,7 +73,8 @@ export const signIn =
 		try {
 			const data = await authService.login({ email, password });
 			localStorageService.setToken(data);
-			dispatch(receiveUserData());
+			await dispatch(receiveUserData());
+			history.push("/");
 		} catch (error) {
 			const { code, message } = error.response.data.error;
 			if (code === 400) {
@@ -96,24 +98,16 @@ export const editUserData = (payload) => async (dispatch) => {
 	try {
 		const { content } = await authService.edit(payload);
 		dispatch(userEdited(content));
+		history.push("/projects");
 	} catch (error) {
 		dispatch(editRequestFailed(error.message));
 	}
 };
-export const editUserEmail =
-	({ email }) =>
-	async (dispatch) => {
-		try {
-			const data = await authService.editEmail({ email });
-			localStorageService.setToken(data);
-		} catch (error) {
-			console.log(error);
-		}
-	};
 
 export const logOut = () => (dispatch) => {
 	localStorageService.removeToken();
 	dispatch(userLoggedOut());
+	history.push("/login");
 };
 
 // export const editUser = (data) => async (dispatch) => {

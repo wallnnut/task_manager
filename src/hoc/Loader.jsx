@@ -21,7 +21,7 @@ const Loader = ({ children }) => {
 		dispatch(loadCategorySizes());
 		dispatch(loadCategorySphere());
 		dispatch(loadPriorities());
-	}, []);
+	}, [loggedInStatus]);
 	return (
 		<div>
 			{!tasksIsLoaded ? (

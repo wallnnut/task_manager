@@ -15,7 +15,6 @@ import {
 } from "../store/slices/priority";
 import { getTasksExistStatus, loadTaskList } from "../store/slices/tasks";
 import { getLoggedInStatus } from "../store/slices/user";
-
 import Spinner from "react-bootstrap/Spinner";
 
 const DataLoader = ({ children }) => {
@@ -33,7 +32,7 @@ const DataLoader = ({ children }) => {
 			if (!sphere) dispatch(loadCategorySphere());
 			if (!priority) dispatch(loadPriorities());
 		}
-	});
+	}, [isLoggedIn]);
 	return (
 		<div>
 			{dataLoadedStatus ? (
