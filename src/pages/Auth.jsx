@@ -23,9 +23,9 @@ const RegisterLogin = () => {
 							<RegisterForm />
 							<p>
 								Уже есть аккаунт?
-								<a role="button" onClick={toggleFormType}>
+								<span role="button" onClick={toggleFormType}>
 									Войти
-								</a>
+								</span>
 							</p>
 						</>
 					) : (
@@ -34,9 +34,9 @@ const RegisterLogin = () => {
 							<LoginForm />
 							<p>
 								Нет аккаунта
-								<a role="button" onClick={toggleFormType}>
+								<span role="button" onClick={toggleFormType}>
 									Зарегестрироваться
-								</a>
+								</span>
 							</p>
 						</>
 					)}

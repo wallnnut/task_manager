@@ -77,14 +77,15 @@ const {
 
 export const loadTaskList = () => async (dispatch) => {
 	dispatch(tasksRequested());
-	if (userId) {
-		try {
-			const { content } = await taskService.get();
-			dispatch(tasksReceived(content));
-		} catch (error) {
-			dispatch(tasksRequestFailed(error.message));
-		}
+	// if (userId) {
+	try {
+		const { content } = await taskService.get();
+		dispatch(tasksReceived(content));
+	} catch (error) {
+		console.log(error);
+		dispatch(tasksRequestFailed(error.response.data.message));
 	}
+	// }
 	// else {
 	// 	dispatch(tasksReceived([]));
 	// }
@@ -128,9 +129,18 @@ export const editTask = (data) => async (dispatch) => {
 };
 
 export const getTaskList = () => (state) => state.tasks.entities;
+export const getIncompletedTasks = () => (state) =>
+	state.tasks.dataLoaded
+		? state.tasks.entities.filter((task) => task.completed === false)
+		: null;
 export const getLoadingStatusTasks = () => (state) => state.tasks.isLoading;
 export const getTaskById = (id) => (state) =>
 	state.tasks.entities.find((task) => task._id === id);
 export const getTasksExistStatus = () => (state) => state.tasks.dataLoaded;
+export const getCompletedTasks = () => (state) =>
+	state.tasks.dataLoaded
+		? state.tasks.entities.filter((task) => task.completed === true)
+		: null;
+export const getTaskErrors = () => (state) => state.tasks.error;
 
 export default tasksReducer;

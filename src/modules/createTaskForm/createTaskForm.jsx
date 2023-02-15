@@ -28,24 +28,30 @@ const CreateTaskForm = () => {
 		priority: "",
 		category_sphere: "",
 		category_size: "",
-		time: "",
+		time: moment().format("x"),
 		completed: false,
 		focused_time: 0,
 	});
-
+	useEffect(() => {
+		setIsAlarm(false);
+		setIsCalendar(false);
+		setData({
+			title: "",
+			description: "",
+			expires_date: "",
+			priority: "",
+			category_sphere: "",
+			category_size: "",
+			time: moment().format("x"),
+			completed: false,
+			focused_time: 0,
+		});
+	}, [createTaskModal]);
 	const [errors, setErrors] = useState({});
 	const [value, onChange] = useState(new Date());
 	const [isCalendar, setIsCalendar] = useState(false);
 	const [isAlarm, setIsAlarm] = useState(false);
-	const handleClick = (e) => {
-		e.stopPropagation();
-		if (e.target.name === "calendar") {
-			setIsCalendar((prevState) => !prevState);
-		}
-		if (e.target.name === "alarm") {
-			setIsAlarm((prevState) => !prevState);
-		}
-	};
+
 	const handleChange = (target) => {
 		if (target.name === "time") {
 			setData((prevState) => ({
@@ -144,7 +150,11 @@ const CreateTaskForm = () => {
 										variant="success"
 										style={{ position: "relative" }}
 										name="calendar"
-										onClick={handleClick}
+										onClick={() =>
+											setIsCalendar(
+												(prevState) => !prevState
+											)
+										}
 									>
 										<i className="bi bi-calendar fs-5"></i>
 										{data.expires_date !== "" && (
@@ -166,7 +176,11 @@ const CreateTaskForm = () => {
 									<Button
 										variant="success"
 										name="alarm"
-										onClick={handleClick}
+										onClick={() =>
+											setIsAlarm(
+												(prevState) => !prevState
+											)
+										}
 									>
 										<i className="bi bi-alarm fs-5"></i>
 									</Button>
@@ -229,7 +243,10 @@ const CreateTaskForm = () => {
 																value
 															).format("x"),
 													}));
-													setIsCalendar();
+													setIsCalendar(
+														(prevState) =>
+															!prevState
+													);
 												}}
 												onChange={onChange}
 												value={value}

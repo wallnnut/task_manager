@@ -110,22 +110,13 @@ export const logOut = () => (dispatch) => {
 	history.push("/login");
 };
 
-// export const editUser = (data) => async (dispatch) => {
-// 	dispatch(editRequested());
-// 	try {
-// 		const { content } = await authService.editUser(data);
-// 		dispatch(userEdited(data));
-// 		// history.goBack();
-// 		return content;
-// 	} catch (error) {
-// 		dispatch(editRequestFailed(error.message));
-// 	}
-// };
+
 
 export const getLoggedInStatus = () => (state) => state.user.isLoggedIn;
 export const getDataStatus = () => (state) => state.user.dataLoaded;
 export const getCurrentUserData = () => (state) =>
 	state.user.user ? state.user.user : null;
-export const getLoginErrors = () => (state) => state.user.error;
+export const getAuthErrors = () => (state) => state.user.error;
+
 
 export default usersReducer;

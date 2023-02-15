@@ -16,8 +16,8 @@ const TaskContainer = ({ task, onRemove, onComplete, listForAllProjects }) => {
 	return (
 		<Row
 			md={4}
-			className={`shadow-sm align-items-center  justify-content-sm-between bg-light-subtle rounded-4 mb-4 p-4 ${
-				task.completed ? "text-decoration-line-through" : ""
+			className={`shadow-sm align-items-center  justify-content-sm-between  rounded-4 mb-4 p-4 ${
+				task.completed ? "opacity-50 bg-light-subtle" : "bg-body"
 			}`}
 		>
 			<Col lg={1} sm={2} className="d-flex align-items-center my-2">
@@ -37,7 +37,7 @@ const TaskContainer = ({ task, onRemove, onComplete, listForAllProjects }) => {
 				<Badge>{size.name}</Badge>
 			</Col>
 			<Col className="my-2" sm={4}>
-				<Badge>{priority.name}</Badge>
+				<Badge bg={priority.color}>{priority.name}</Badge>
 			</Col>
 
 			<Col lg={2} sm={2} className="d-flex align-items-center my-2 ">

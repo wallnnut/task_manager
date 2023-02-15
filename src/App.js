@@ -13,6 +13,7 @@ import EditUser from "./pages/editUser";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./modules/navBar/NavBar";
 import Loader from "./hoc/Loader";
+import CompletedList from "pages/CompletedList";
 
 function App() {
 	return (
@@ -36,6 +37,11 @@ function App() {
 						exact
 						path="/profile"
 						component={EditUser}
+					/>
+					<ProtectedRoute
+						exact
+						path="/completed"
+						component={CompletedList}
 					/>
 
 					<Route path="/logout" component={LogOut} exact />

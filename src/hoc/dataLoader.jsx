@@ -13,9 +13,15 @@ import {
 	getPriorityExistStatus,
 	loadPriorities,
 } from "../store/slices/priority";
-import { getTasksExistStatus, loadTaskList } from "../store/slices/tasks";
+import {
+	getTaskErrors,
+	getTasksExistStatus,
+	loadTaskList,
+} from "../store/slices/tasks";
 import { getLoggedInStatus } from "../store/slices/user";
-import Spinner from "react-bootstrap/Spinner";
+import CustomSpinner from "components/customSpinner";
+import { Redirect } from "react-router-dom";
+import localStorageService from "services/localStorage.service";
 
 const DataLoader = ({ children }) => {
 	const dispatch = useDispatch();
@@ -24,24 +30,21 @@ const DataLoader = ({ children }) => {
 	const size = useSelector(getSizeExistStatus());
 	const sphere = useSelector(getSphereExistStatus());
 	const priority = useSelector(getPriorityExistStatus());
+	const taskErrors = useSelector(getTaskErrors());
 	const dataLoadedStatus = tasks && size && sphere && priority;
 	useEffect(() => {
 		if (isLoggedIn) {
-			if (!tasks) dispatch(loadTaskList());
 			if (!size) dispatch(loadCategorySizes());
 			if (!sphere) dispatch(loadCategorySphere());
 			if (!priority) dispatch(loadPriorities());
+			if (!tasks) dispatch(loadTaskList());
 		}
-	}, [isLoggedIn]);
-	return (
-		<div>
-			{dataLoadedStatus ? (
-				children
-			) : (
-				<Spinner animation="border" variant="warning" />
-			)}
-		</div>
-	);
+	}, []);
+	if (taskErrors === "Unauthorized") {
+		localStorage.clear();
+		return <Redirect to="/login" />;
+	}
+	return <div>{dataLoadedStatus ? children : <CustomSpinner />}</div>;
 };
 
 export default DataLoader;

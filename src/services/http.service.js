@@ -42,7 +42,7 @@ http.interceptors.request.use(
 		} else {
 			if (isExpired) {
 				const data = await authService.refresh();
-				await localStorageService.setToken(data);
+				 localStorageService.setToken(data);
 			}
 			if (acessToken) {
 				config.headers = {

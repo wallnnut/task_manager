@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 import EditTaskPage from "./editTaskPage";
 import DataLoader from "../hoc/dataLoader";
 import { useSelector } from "react-redux";
-import { getTaskList } from "store/slices/tasks";
+import { getIncompletedTasks } from "store/slices/tasks";
 import Filters from "modules/filterModalForm/filters";
 const AllProjects = () => {
 	const { taskId } = useParams();
-	const tasks = useSelector(getTaskList());
+	const tasks = useSelector(getIncompletedTasks());
 	const [filter, setFilter] = useState({});
 	const onSelect = (choosenCategory) => {
 		setFilter(choosenCategory);

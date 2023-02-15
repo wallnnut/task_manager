@@ -28,13 +28,12 @@ const TasksList = ({ tasks, listForAllProjects }) => {
 	const handlePageChange = (pageIndex) => {
 		setActivePage(pageIndex);
 	};
-
 	const taskCrop = paginate(tasks, activePage, pageSize);
 	if (tasks.length === 0) return null;
 	return (
 		<>
 			{!isLoading ? (
-				<Container fluid="md" className="mt-5">
+				<Container fluid="md" className="mt-5 ">
 					{taskCrop.map((task) => (
 						<TaskContainer
 							listForAllProjects={listForAllProjects}

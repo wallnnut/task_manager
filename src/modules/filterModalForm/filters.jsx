@@ -113,7 +113,7 @@ const Filters = ({ onSelect }) => {
 								</ul>
 							</div>
 							<Button
-								className="w-100"
+								className="w-100 mb-4"
 								onClick={(e) => handleClick(e)}
 							>
 								Сбросить фильтр

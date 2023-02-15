@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavProfile from "./components/navProfile";
 import { getLoggedInStatus, getCurrentUserData } from "../../store/slices/user";
+import { Spinner } from "react-bootstrap";
 
 const NavBar = () => {
 	const currentUser = useSelector(getCurrentUserData());
@@ -25,28 +26,40 @@ const NavBar = () => {
 								<Link to="/projects">Проекты</Link>
 							</Nav.Link>
 							<Nav.Link as="li">
+								<Link to="/completed">Завершенные проекты</Link>
+							</Nav.Link>
+							<Nav.Link as="li">
 								<Link to="/analytics">Аналитика</Link>
 							</Nav.Link>
 						</Nav>
 						<Nav as="ul">
 							<Nav.Link as="li">
 								{isLoggedIn ? (
-									<div className="d-flex">
-										<div className="me-2">
-											{currentUser &&
-											currentUser.image ? (
-												<img
-													src={currentUser.image}
-													height="40px"
-													alt="#"
-												/>
-											) : (
-												<i className="fs-2 bi bi-person-circle"></i>
-											)}
-										</div>
+									currentUser ? (
+										<div className="d-flex">
+											<div className="me-2">
+												{currentUser &&
+												currentUser.image ? (
+													<img
+														src={currentUser.image}
+														height="40px"
+														alt="#"
+													/>
+												) : (
+													<i className="fs-2 bi bi-person-circle"></i>
+												)}
+											</div>
 
-										<NavProfile currentUser={currentUser} />
-									</div>
+											<NavProfile
+												currentUser={currentUser}
+											/>
+										</div>
+									) : (
+										<Spinner
+											animation="border"
+											variant="warning"
+										/>
+									)
 								) : (
 									<Link to="/login">Login</Link>
 								)}

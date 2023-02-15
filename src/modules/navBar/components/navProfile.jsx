@@ -13,10 +13,10 @@ const NavProfile = ({ currentUser }) => {
 				as="div"
 			>
 				<NavDropdown.Item as="div">
-					<Link to="/profile">Profile</Link>
+					<Link to="/profile">Профиль</Link>
 				</NavDropdown.Item>
 				<NavDropdown.Item as="div">
-					<Link to="/logout">Log out</Link>
+					<Link to="/logout">Выйти</Link>
 				</NavDropdown.Item>
 			</NavDropdown>
 		</div>
