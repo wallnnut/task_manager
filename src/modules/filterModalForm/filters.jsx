@@ -48,7 +48,7 @@ const Filters = ({ onSelect }) => {
 				<Container>
 					<Row>
 						<Col md={10} className="offset-md-1 ">
-							<div className="mb-4">
+							<div className="mb-4 mt-4">
 								<h5>Сфера</h5>
 								<hr />
 								<ul>

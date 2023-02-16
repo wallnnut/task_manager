@@ -203,7 +203,7 @@ const EditTaskForm = () => {
 									className=" bg-primary-subtle w-100 mb-3"
 									type="submit"
 								>
-									Создать
+									Изменить
 								</Button>
 							</form>
 						</Col>

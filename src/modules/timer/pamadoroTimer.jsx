@@ -133,7 +133,7 @@ const PamadoroTimer = () => {
 					/>
 					<SelectField
 						label="Выбери задачу"
-						defaultOption="Choose..."
+						defaultOption="Выберите задачу"
 						options={taskList}
 						name="tasks"
 						onChange={handleChange}

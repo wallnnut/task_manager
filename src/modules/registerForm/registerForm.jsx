@@ -1,15 +1,17 @@
-import moment from "moment/moment";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { signUp } from "../../store/slices/user";
+import { getAuthErrors, signUp } from "../../store/slices/user";
 import { registerSchema } from "./validators/registerSchema";
 import { CheckBoxField, RadioField, TextField } from "components";
+import { authErrorGenerator } from "utils/errorGenerator";
 
 const RegisterForm = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
+	const registerErrors = useSelector(getAuthErrors());
 	const [errors, setErrors] = useState({});
 	const [data, setData] = useState({
 		email: "",
@@ -106,6 +108,7 @@ const RegisterForm = () => {
 			>
 				Подтвердить <a>лицензионное соглашение</a>
 			</CheckBoxField>
+			{registerErrors && <p className="text-danger">{registerErrors}</p>}
 			<Button
 				className=" bg-primary-subtle w-100 mx-auto"
 				type="submit"

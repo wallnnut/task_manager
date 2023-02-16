@@ -1,8 +1,8 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
+import { authErrorGenerator } from "utils/errorGenerator";
 import { history } from "utils/history";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
-// import { authErrorGenerator } from "../utils/authErrorGenerator";
 
 const initialState = localStorageService.getAccessToken()
 	? {
@@ -62,7 +62,13 @@ export const signUp = (payload) => async (dispatch) => {
 		await dispatch(receiveUserData());
 		history.push("/");
 	} catch (error) {
-		dispatch(authRequestFailed(error.message));
+		const { message } = error.response.data.error;
+		if (error.response.status === 400) {
+			const errorMessage = authErrorGenerator(message);
+			dispatch(authRequestFailed(errorMessage));
+		} else {
+			dispatch(authRequestFailed(error.message));
+		}
 	}
 };
 
@@ -76,10 +82,10 @@ export const signIn =
 			await dispatch(receiveUserData());
 			history.push("/");
 		} catch (error) {
-			const { code, message } = error.response.data.error;
-			if (code === 400) {
-				// const errorMessage = authErrorGenerator(message);
-				// dispatch(authRequestFailed(errorMessage));
+			const { message } = error.response.data.error;
+			if (error.response.status === 400) {
+				const errorMessage = authErrorGenerator(message);
+				dispatch(authRequestFailed(errorMessage));
 			} else {
 				dispatch(authRequestFailed(error.message));
 			}

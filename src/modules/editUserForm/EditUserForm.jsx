@@ -116,7 +116,7 @@ const EditUserForm = () => {
 								type="submit"
 								disabled={!isValid}
 							>
-								Submit
+								Сохранить
 							</Button>
 						</Container>
 					</form>
