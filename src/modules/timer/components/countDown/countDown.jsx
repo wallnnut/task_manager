@@ -4,7 +4,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 const CountDown = ({
-	disabled,
+	isTaskChoosed,
+	isPassedTwoMinutes,
 	reset,
 	setTimer,
 	percentage,
@@ -37,6 +38,7 @@ const CountDown = ({
 					<i className="bi bi-alarm fs-4"></i>
 				</Button>
 				<Button
+					disabled={isTaskChoosed}
 					name="pause"
 					variant="dark"
 					className="me-2"
@@ -52,7 +54,7 @@ const CountDown = ({
 					<i className="bi bi-stop fs-4"></i>
 				</Button>
 			</div>
-			<Button disabled={disabled} onClick={pushFocusedTime}>
+			<Button disabled={isPassedTwoMinutes} onClick={pushFocusedTime}>
 				Закончить работу над задачей
 			</Button>
 		</div>

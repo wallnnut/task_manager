@@ -24,10 +24,15 @@ const authService = {
 		return data;
 	},
 	refresh: async () => {
-		const { data } = await httpAuth.post("token", {
-			refresh_token: localStorageService.getRefreshToken(),
-		});
-		return data;
+		try {
+			const { data } = await httpAuth.post("token", {
+				refresh_token: localStorageService.getRefreshToken(),
+			});
+			return data;
+		} catch (e) {
+			console.log(e.response.data.message);
+		}
+		
 	},
 
 	edit: async (payload) => {

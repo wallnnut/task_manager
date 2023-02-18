@@ -22,10 +22,10 @@ const Loader = ({ children }) => {
 			dispatch(receiveUserData());
 		}
 	}, [loggedInStatus]);
-	if (authErrors === "Unauthorized") {
-		localStorage.clear();
-		return <Redirect to="/login" />;
-	}
+	// if (authErrors === "Unauthorized") {
+	// 	localStorage.clear();
+	// 	return <Redirect to="/login" />;
+	// }
 	return <>{loggedInStatus ? children : <RegisterLogin />}</>;
 };
 

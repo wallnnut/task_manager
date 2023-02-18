@@ -15,6 +15,7 @@ const EditUserForm = () => {
 		birthDate: currentUser.birthDate ? currentUser.birthDate : "",
 		name: currentUser.name ? currentUser.name : "",
 		sex: currentUser.sex ? currentUser.sex : "",
+		password: "",
 	});
 	const options = [
 		{ name: "Male", value: "male" },
@@ -65,11 +66,14 @@ const EditUserForm = () => {
 	return (
 		<Container className="mt-5">
 			<Row>
-				<Col className="shadow bg-dark rounded-3 p-4">
+				<Col
+					md={6}
+					className="offset-md-3 shadow bg-dark rounded-3 p-4 mb-4"
+				>
 					<h3>Редактировать</h3>
 					<form onSubmit={handleSubmit}>
 						<Container>
-							<Row className="d-flex align-items-end">
+							<Row>
 								<Col>
 									<TextField
 										label="Электронная почта"
@@ -78,8 +82,6 @@ const EditUserForm = () => {
 										onChange={handleChange}
 										error={errors.email}
 									/>
-								</Col>
-								<Col>
 									<TextField
 										label="Имя"
 										name="name"
@@ -87,10 +89,6 @@ const EditUserForm = () => {
 										onChange={handleChange}
 										error={errors.name}
 									/>
-								</Col>
-							</Row>
-							<Row>
-								<Col>
 									<TextField
 										label="Дата рождения"
 										type="date"
@@ -99,8 +97,6 @@ const EditUserForm = () => {
 										onChange={handleChange}
 										error={errors.birthDate}
 									/>
-								</Col>
-								<Col>
 									<RadioField
 										options={options}
 										value={data.sex}

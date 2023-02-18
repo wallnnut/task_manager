@@ -40,10 +40,10 @@ const DataLoader = ({ children }) => {
 			if (!tasks) dispatch(loadTaskList());
 		}
 	}, []);
-	if (taskErrors === "Unauthorized") {
-		localStorage.clear();
-		return <Redirect to="/login" />;
-	}
+	// if (taskErrors === "Unauthorized") {
+	// 	localStorage.clear();
+	// 	return <Redirect to="/login" />;
+	// }
 	return <div>{dataLoadedStatus ? children : <CustomSpinner />}</div>;
 };
 

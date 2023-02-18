@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SetTimerForm from "./components/setTimerForm/setTimerForm";
 import ModalWindow from "../../hoc/ModalWindow";
-import { editTask, getTaskList } from "../../store/slices/tasks";
+import {
+	editTask,
+	getIncompletedTasks,
+	getTaskList,
+} from "../../store/slices/tasks";
 import CountDown from "./components/countDown/countDown";
 import { toast } from "react-toastify";
 import { Form } from "react-bootstrap";
@@ -17,7 +21,7 @@ const PamadoroTimer = () => {
 	});
 
 	const [timerModal, setTimerModal] = useMod(false);
-	const tasks = useSelector(getTaskList());
+	const tasks = useSelector(getIncompletedTasks());
 	const taskList = tasks
 		? tasks.map((task) => ({
 				value: task._id,
@@ -108,12 +112,17 @@ const PamadoroTimer = () => {
 		}));
 	};
 
+	const isPassedTwoMinutes = totalSeconds - secondsLeft > 120 ? false : true;
+	const isTaskChoosed = data.tasks === "" ? true : false;
+	console.log(isPassedTwoMinutes);
+
 	return (
 		<DataLoader>
 			<div className="row">
 				<div className="col-md-6 offset-md-3 p-4">
 					<CountDown
-						disabled={data.tasks === "" ? true : false}
+						isPassedTwoMinutes={isPassedTwoMinutes}
+						isTaskChoosed={isTaskChoosed}
 						percentage={percentage}
 						hours={hours}
 						minutes={minutes}

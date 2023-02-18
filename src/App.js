@@ -3,7 +3,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AllProjects from "./pages/allProjects";
 import Main from "pages/Main";
-import RegisterLogin from "./pages/Auth";
 import Analytics from "./pages/analytics";
 import LogOut from "./components/logOut";
 import { ToastContainer } from "react-toastify";
@@ -14,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./modules/navBar/NavBar";
 import Loader from "./hoc/Loader";
 import CompletedList from "pages/CompletedList";
+import Auth from "./pages/Auth";
 
 function App() {
 	return (
@@ -22,7 +22,7 @@ function App() {
 				<NavBar />
 				<Switch>
 					<ProtectedRoute exact path="/" component={Main} />
-					<Route exact path="/login" component={RegisterLogin} />
+					<Route exact path="/login" component={Auth} />
 					<ProtectedRoute
 						exact
 						path="/projects/:taskId?/:edit?"

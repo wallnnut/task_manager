@@ -4,17 +4,22 @@ import { history } from "utils/history";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 
-const initialState = localStorageService.getAccessToken()
-	? {
-			user: null,
-			error: null,
-			isLoggedIn: true,
-	  }
-	: {
-			user: null,
-			error: null,
-			isLoggedIn: false,
-	  };
+
+
+const isRefreshExpired =
+	localStorageService.getExpiresRefresh() < Date.now().toString();
+const initialState =
+	localStorageService.getAccessToken() && !isRefreshExpired
+		? {
+				user: null,
+				error: null,
+				isLoggedIn: true,
+		  }
+		: {
+				user: null,
+				error: null,
+				isLoggedIn: false,
+		  };
 
 const usersSlice = createSlice({
 	name: "user",

@@ -5,15 +5,10 @@ export const editSchema = yup.object().shape({
 	birthDate: yup
 		.number()
 		.required("Дата рождения обязательна для запаолнения")
-		.min(
-			moment("2020-01-01").valueOf(),
-			"Дата рождения должна быть больше чем 01.01.2020"
-		)
 		.max(
 			moment().valueOf(),
 			"Дата рождения не можеть быть больше текущей даты"
 		),
-
 	name: yup
 		.string()
 		.required("Введите ваше имя")

@@ -35,31 +35,13 @@ const NavBar = () => {
 						<Nav as="ul">
 							<Nav.Link as="li">
 								{isLoggedIn ? (
-									currentUser ? (
-										<div className="d-flex">
-											<div className="me-2">
-												{currentUser &&
-												currentUser.image ? (
-													<img
-														src={currentUser.image}
-														height="40px"
-														alt="#"
-													/>
-												) : (
-													<i className="fs-2 bi bi-person-circle"></i>
-												)}
-											</div>
-
-											<NavProfile
-												currentUser={currentUser}
-											/>
+									<div className="d-flex">
+										<div className="me-2">
+											<i className="fs-2 bi bi-person-circle"></i>
 										</div>
-									) : (
-										<Spinner
-											animation="border"
-											variant="warning"
-										/>
-									)
+
+										<NavProfile currentUser={currentUser} />
+									</div>
 								) : (
 									<Link to="/login">Login</Link>
 								)}
